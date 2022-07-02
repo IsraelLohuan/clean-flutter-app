@@ -13,19 +13,8 @@
         {
             "name": "fordev",
             "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "fordev (profile mode)",
-            "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "fordev (release mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
+            "program": "lib/main/main.dart"
         }
     ]
 }
