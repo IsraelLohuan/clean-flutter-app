@@ -1,3 +1,4 @@
+import 'package:ForDev/ui/components/components.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -6,38 +7,43 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              child: Image(image: AssetImage('lib/ui/assets/logo.png'),),
-            ),
-            Text('Login'.toUpperCase()),
-            Form(
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'E-mail',
-                      icon: Icon(Icons.email)
+            LoginHeader(),
+            HeadLine1(text: 'Login',),
+            Padding(
+              padding: const EdgeInsets.all(32),
+              child: Form(
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'E-mail',
+                        icon: Icon(Icons.email, color: Theme.of(context).primaryColorLight,)
+                      ),
+                      keyboardType: TextInputType.emailAddress,
                     ),
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Senha',
-                      icon: Icon(Icons.lock)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8, bottom: 32),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'Senha',
+                          icon: Icon(Icons.lock, color: Theme.of(context).primaryColorLight,)
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                      ),
                     ),
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  RaisedButton(
-                    onPressed: () {},
-                    child: Text('Entrar'.toUpperCase()),
-                  ),
-                  FlatButton.icon(
-                    onPressed: () {}, 
-                    icon: Icon(Icons.person), 
-                    label: Text('Criar Conta')
-                  )
-                ],
+                    RaisedButton(
+                      onPressed: () {},
+                      child: Text('Entrar'.toUpperCase()),
+                    ),
+                    FlatButton.icon(
+                      onPressed: () {}, 
+                      icon: Icon(Icons.person), 
+                      label: Text('Criar Conta')
+                    )
+                  ],
+                ),
               ),
             )
           ]
@@ -46,3 +52,5 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
+
+
