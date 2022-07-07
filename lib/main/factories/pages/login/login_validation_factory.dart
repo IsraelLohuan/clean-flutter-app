@@ -1,4 +1,5 @@
 
+import 'package:ForDev/main/builders/builders.dart';
 import 'package:ForDev/presentation/protocol/validation.dart';
 import 'package:ForDev/validation/protocols/protocols.dart';
 import 'package:ForDev/validation/validators/validators.dart';
@@ -9,8 +10,7 @@ Validation makeLoginValidation() {
 
 List<FieldValidation> makeLoginValidations() {
   return [
-    RequiredFieldValidation('email'),
-    EmailValidation('email'),
-    RequiredFieldValidation('password')
+    ...ValidationBuilder.field('email').required().email().build(),
+    ...ValidationBuilder.field('password').required().build()
   ];
 }
