@@ -3,8 +3,8 @@ import 'package:ForDev/data/models/models.dart';
 import 'package:ForDev/domain/entities/account_entity.dart';
 import 'package:ForDev/domain/helpers/domain_error.dart';
 import 'package:meta/meta.dart';
-import '../../domain/usecases/usecases.dart';
-import '../http/http.dart';
+import '../../../domain/usecases/usecases.dart';
+import '../../http/http.dart';
 
 class RemoteAuthentication implements Authentication {
   final HttpClient httpClient;
