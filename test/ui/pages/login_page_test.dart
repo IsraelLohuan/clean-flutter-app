@@ -54,7 +54,7 @@ void main() {
       initialRoute: '/login',
       getPages: [
         GetPage(name: '/login', page: () => LoginPage(presenter)),
-        GetPage(name: '/any_route ', page: () => Scaffold(body: Text('fake page'),)),
+        GetPage(name: '/any_route', page: () => Scaffold(body: Text('fake page'))),
       ],
     );
     await tester.pumpWidget(loginPage);
@@ -225,7 +225,7 @@ void main() {
   });
 
   testWidgets('Should change page', (WidgetTester tester) async {
-    await loadPage(tester);
+   await loadPage(tester);
 
     navigateToController.add('/any_route');
     await tester.pumpAndSettle();
