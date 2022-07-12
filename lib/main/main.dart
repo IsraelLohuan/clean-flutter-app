@@ -1,9 +1,9 @@
 
+import 'package:ForDev/main/factories/pages/pages.dart';
 import 'package:ForDev/ui/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'factories/pages/login/login_page_factory.dart';
 
 void main() {
   runApp(App());
@@ -17,10 +17,11 @@ class App extends StatelessWidget {
       title: '4Dev',
       debugShowCheckedModeBanner: false,
       theme: makeAppTheme(),
-      initialRoute: '/login',
+      initialRoute: '/',
       getPages: [
-        GetPage(name: '/login', page: makeLoginPage),
-        GetPage(name: '/surveys', page: () => Scaffold(body: Text('Enquetes'),))
+        GetPage(name: '/', page: makeSplashPage, transition: Transition.fade),
+        GetPage(name: '/login', page: makeLoginPage, transition: Transition.fadeIn),
+        GetPage(name: '/surveys', page: () => Scaffold(body: Text('Enquetes'),), transition: Transition.fadeIn)
       ],
     );
   }
