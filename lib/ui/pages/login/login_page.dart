@@ -1,6 +1,6 @@
 import 'package:ForDev/ui/components/components.dart';
 import 'package:ForDev/ui/helpers/errors/errors.dart';
-import 'package:ForDev/ui/helpers/i18n/i18n.dart';
+import 'package:ForDev/ui/helpers/helpers.dart';
 import 'package:ForDev/ui/pages/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,7 +46,7 @@ class LoginPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   LoginHeader(),
-                  HeadLine1(text: 'Login',),
+                  HeadLine1(text: R.strings.login,),
                   Padding(
                     padding: const EdgeInsets.all(32),
                     child: Provider(
