@@ -1,4 +1,5 @@
 
+import 'package:ForDev/domain/helpers/domain_error.dart';
 import 'package:meta/meta.dart';
 import '../../../domain/usecases/usecases.dart';
 import '../../http/http.dart';
@@ -12,10 +13,15 @@ class RemoteAddAccount {
     @required this.url
   });
 
-  @override
   Future<void> add(AddAccountParams params) async {
     final body = RemoteAddAccountParams.fromDomain(params).toJson();
-    await httpClient.request(url: url, method: 'post', body: body);
+    try {
+      await httpClient.request(url: url, method: 'post', body: body);
+    } on HttpError catch(error) {
+      throw error == HttpError.unauthorized
+        ? DomainError.invalidCredentials
+        : DomainError.unexpected;
+    }
   }
 }
 
