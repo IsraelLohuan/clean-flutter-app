@@ -1,3 +1,4 @@
+import 'package:ForDev/presentation/protocol/protocols.dart';
 import 'package:ForDev/validation/validators/validators.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -13,10 +14,10 @@ void main() {
   });
 
   test('Should return error if value is empty', () {
-    expect(sut.validate(''), 'Campo obrigatório');
+    expect(sut.validate(''), ValidationError.requiredField);
   });
 
   test('Should return error if value is null', () {
-    expect(sut.validate(null), 'Campo obrigatório');
+    expect(sut.validate(null), ValidationError.requiredField);
   });
 }

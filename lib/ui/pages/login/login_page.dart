@@ -1,5 +1,7 @@
 import 'package:ForDev/ui/components/components.dart';
+import 'package:ForDev/ui/helpers/errors/errors.dart';
 import 'package:ForDev/ui/pages/pages.dart';
+import 'package:ForDev/utils/i18n/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +29,7 @@ class LoginPage extends StatelessWidget {
         
           presenter.mainErrorStream.listen((error) {
             if(error != null) {
-              showErrorMessage(context, error);
+              showErrorMessage(context, error.description);
             }
           });
 
@@ -61,7 +63,7 @@ class LoginPage extends StatelessWidget {
                             FlatButton.icon(
                               onPressed: () {}, 
                               icon: Icon(Icons.person), 
-                              label: Text('Criar Conta')
+                              label: Text(R.strings.addAccount)
                             )
                           ],
                         ),
