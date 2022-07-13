@@ -76,11 +76,11 @@ void main() {
   });
 
   
-  test('Should throw InvalidCredentialsError if HttpClient return 401', () async {
-    mockHttpError(HttpError.unauthorized);
+  test('Should throw EmailInUseError if HttpClient return 403', () async {
+    mockHttpError(HttpError.forbidden);
    
     final future = sut.add(params);
 
-    expect(future, throwsA(DomainError.invalidCredentials));
+    expect(future, throwsA(DomainError.emailInUse));
   });
 }
