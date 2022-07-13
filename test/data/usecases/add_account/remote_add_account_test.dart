@@ -66,4 +66,21 @@ void main() {
 
     expect(future, throwsA(DomainError.unexpected));
   });
+
+  test('Should throw UnexpectedError if HttpClient return 500', () async {
+    mockHttpError(HttpError.serverError);
+  
+    final future = sut.add(params);
+
+    expect(future, throwsA(DomainError.unexpected));
+  });
+
+  
+  test('Should throw InvalidCredentialsError if HttpClient return 401', () async {
+    mockHttpError(HttpError.unauthorized);
+   
+    final future = sut.add(params);
+
+    expect(future, throwsA(DomainError.invalidCredentials));
+  });
 }
