@@ -109,4 +109,23 @@ void main() {
     await tester.enterText(find.bySemanticsLabel('Confirmar senha'), passwordConfirmation);
     verify(presenter.validatePasswordConfirmation(passwordConfirmation));
   });
+
+  testWidgets('Should present email error', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    emailErrorController.add(UiError.invalidField);
+    await tester.pump();
+    expect(find.text('Campo inválido'), findsOneWidget);
+
+    emailErrorController.add(UiError.requiredField);
+    await tester.pump();
+    expect(find.text('Campo obrigatório'), findsOneWidget);
+
+    emailErrorController.add(null);
+    await tester.pump();
+    expect(
+      find.descendant(of: find.bySemanticsLabel('Email'), matching: find.byType(Text)),
+      findsOneWidget
+    );
+  });
 }
