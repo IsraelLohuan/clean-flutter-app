@@ -38,10 +38,13 @@ void main() {
   }
 
   Future<void> loadPage(WidgetTester tester) async {
+    presenter = SignUpPresenterSpy();
+    initStreams();
+    mockStreams();
     final signUpPage = GetMaterialApp(
       initialRoute: '/signup',
       getPages: [
-        GetPage(name: '/signup', page: () => SignUpPage()),
+        GetPage(name: '/signup', page: () => SignUpPage(presenter)),
       ],
     );
     await tester.pumpWidget(signUpPage);
@@ -90,6 +93,10 @@ void main() {
   testWidgets('Should call validate with correct values', (WidgetTester tester) async {
     await loadPage(tester);
 
+    final name = faker.person.name();
+    await tester.enterText(find.bySemanticsLabel('Nome'), name);
+    verify(presenter.validateName(name));
+
     final email = faker.internet.email();
     await tester.enterText(find.bySemanticsLabel('Email'), email);
     verify(presenter.validateEmail(email));
@@ -97,5 +104,9 @@ void main() {
     final password = faker.internet.password();
     await tester.enterText(find.bySemanticsLabel('Senha'), password);
     verify(presenter.validatePassword(password));
+
+    final passwordConfirmation = faker.internet.password();
+    await tester.enterText(find.bySemanticsLabel('Confirmar senha'), passwordConfirmation);
+    verify(presenter.validatePasswordConfirmation(passwordConfirmation));
   });
 }
