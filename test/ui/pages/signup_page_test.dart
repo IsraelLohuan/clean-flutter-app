@@ -15,6 +15,7 @@ void main() {
   StreamController<UiError> emailErrorController;
   StreamController<UiError> passwordErrorController;
   StreamController<UiError> passwordConfirmationErrorController;
+  StreamController<UiError> mainErrorController;
   StreamController<bool> isFormValidController;
   StreamController<bool> isLoadingController;
 
@@ -23,6 +24,7 @@ void main() {
     emailErrorController = StreamController<UiError>();
     passwordErrorController = StreamController<UiError>();
     passwordConfirmationErrorController = StreamController<UiError>();
+    mainErrorController = StreamController<UiError>();
     isFormValidController = StreamController<bool>();
     isLoadingController = StreamController<bool>();
   }
@@ -31,6 +33,7 @@ void main() {
     when(presenter.nameErrorStream).thenAnswer((_) => nameErrorController.stream);
     when(presenter.emailErrorStream).thenAnswer((_) => emailErrorController.stream);
     when(presenter.passwordErrorStream).thenAnswer((_) => passwordErrorController.stream);
+    when(presenter.mainErrorStream).thenAnswer((_) => mainErrorController.stream);
     when(presenter.passwordConfirmationErrorStream).thenAnswer((_) => passwordConfirmationErrorController.stream);
     when(presenter.isFormValidStream).thenAnswer((_) => isFormValidController.stream);
     when(presenter.isLoadingStream).thenAnswer((_) => isLoadingController.stream);
@@ -43,6 +46,7 @@ void main() {
     passwordConfirmationErrorController.close();
     isFormValidController.close();
     isLoadingController.close();
+    mainErrorController.close();
   }
 
   Future<void> loadPage(WidgetTester tester) async {
@@ -246,5 +250,23 @@ void main() {
     await tester.pump();
 
     expect(find.byType(CircularProgressIndicator), findsNothing);
+  });
+
+  testWidgets('Should present error message if signUp fails', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    mainErrorController.add(UiError.emailInUse);
+    await tester.pump();
+
+    expect(find.text('O email já está em uso.'), findsOneWidget);
+  });
+
+  testWidgets('Should present error message if signUp throws', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    mainErrorController.add(UiError.unexpected);
+    await tester.pump();
+
+    expect(find.text('Algo errado aconteceu. Tente novamente em breve.'), findsOneWidget);
   });
 }
