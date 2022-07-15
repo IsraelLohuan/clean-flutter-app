@@ -23,7 +23,7 @@ void main() {
   String token;
 
   PostExpectation mockValidationCall(String field) =>
-    when(validation.validate(field: field == null ? anyNamed('field') : field, value: anyNamed('value')));
+    when(validation.validate(field: field == null ? anyNamed('field') : field, input: anyNamed('input')));
 
   void mockValidation({String field, ValidationError value}) {
     mockValidationCall(field).thenReturn(value);
@@ -62,9 +62,14 @@ void main() {
   });
 
   test('Should call Validation with correct email', () {
+    final formData = {
+      'email': email,
+      'password': null
+    };
+
     sut.validateEmail(email);
 
-    verify(validation.validate(field: 'email', value: email)).called(1);
+    verify(validation.validate(field: 'email',input: formData)).called(1);
   });
 
   test('Should emit invalidFieldError if email is invalid', () {
@@ -96,9 +101,14 @@ void main() {
   });
 
   test('Should call Validation with correct password', () {
-    sut.validatePassword(password);
+    final formData = {
+      'email': null,
+      'password': password
+    };
 
-    verify(validation.validate(field: 'password', value: password)).called(1);
+    sut.validatePassword(password);
+  
+    verify(validation.validate(field: 'password', input: formData)).called(1);
   });
 
   test('Should emit requiredFieldError if password is empty', () {

@@ -43,30 +43,36 @@ class GetxSignUpPresenter extends GetxController implements SignUpPresenter {
 
   void validateEmail(String email) {
     _email = email;
-    _emailError.value = _validateField(field: 'email', value: email);  
+    _emailError.value = _validateField(field: 'email');  
     _validateForm();
   }
 
   void validateName(String name) {
     _name = name;
-    _nameError.value = _validateField(field: 'name', value: name);
+    _nameError.value = _validateField(field: 'name');
     _validateForm();
   }
 
   void validatePassword(String password) {
     _password = password;
-    _passwordError.value = _validateField(field: 'password', value: password);
+    _passwordError.value = _validateField(field: 'password');
     _validateForm();
   }
 
   void validatePasswordConfirmation(String passwordConfirmation) {
     _passwordConfirmation = passwordConfirmation;
-    _passwordConfirmationError.value = _validateField(field: 'passwordConfirmation', value: passwordConfirmation);
+    _passwordConfirmationError.value = _validateField(field: 'passwordConfirmation');
     _validateForm();
   }
 
-  UiError _validateField({String field, String value}) {
-    final error = validation.validate(field: field, value: value);
+  UiError _validateField({String field}) {
+    final formData = {
+      'name': _name,
+      'email': _email,
+      'password': _password,
+      'passwordConfirmation': _passwordConfirmation
+    };
+    final error = validation.validate(field: field, input: formData);
     switch(error) {
       case ValidationError.invalidField: return UiError.invalidField;
       case ValidationError.requiredField: return UiError.requiredField;
