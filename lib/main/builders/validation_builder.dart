@@ -2,6 +2,7 @@
 import 'package:ForDev/validation/protocols/protocols.dart';
 import 'package:ForDev/validation/validators/email_validation.dart';
 import 'package:ForDev/validation/validators/required_field_validation.dart';
+import 'package:ForDev/validation/validators/validators.dart';
 
 class ValidationBuilder {
   ValidationBuilder._();
@@ -21,8 +22,13 @@ class ValidationBuilder {
     return this;
   }
 
-   ValidationBuilder email() {
+  ValidationBuilder email() {
     validations.add(EmailValidation(fieldname));
+    return this;
+  }
+
+  ValidationBuilder min(int size) {
+    validations.add(MinLengthValidation(field: fieldname, size: size));
     return this;
   }
 

@@ -1,8 +1,9 @@
 import 'package:ForDev/presentation/protocol/protocols.dart';
 import 'package:ForDev/validation/protocols/protocols.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-class MinLengthValidation implements FieldValidation {
+class MinLengthValidation extends Equatable implements FieldValidation {
   final String field;
   final int size;
 
@@ -11,5 +12,8 @@ class MinLengthValidation implements FieldValidation {
   @override
   ValidationError validate(String value) {
     return value != null && value.length >= size ? null : ValidationError.invalidField;
-  } 
+  }
+
+  @override
+  List<Object> get props => [field, size]; 
 }
