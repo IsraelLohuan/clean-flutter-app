@@ -2,11 +2,12 @@ import 'dart:async';
 import 'package:ForDev/domain/helpers/domain_error.dart';
 import 'package:ForDev/domain/usecases/usecases.dart';
 import 'package:ForDev/ui/helpers/errors/errors.dart';
+import 'package:ForDev/ui/pages/pages.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
 import 'package:ForDev/presentation/protocol/protocols.dart';
 
-class GetxSignUpPresenter extends GetxController {
+class GetxSignUpPresenter extends GetxController implements SignUpPresenter {
   final AddAccount addAccount;
   final Validation validation;
   final SaveCurrentAccount saveCurrentAccount;
@@ -32,7 +33,7 @@ class GetxSignUpPresenter extends GetxController {
   Stream<UiError> get passwordConfirmationErrorStream =>_passwordConfirmationError.stream;
   Stream<bool>    get isFormValidStream => _isFormValid.stream;
   Stream<bool>    get isLoadingStream => _isLoading.stream;
-  Stream<String>  get navigatoToStream => _navigateTo.stream;
+  Stream<String>  get navigateToStream => _navigateTo.stream;
 
   GetxSignUpPresenter({
     @required this.validation, 
@@ -102,5 +103,10 @@ class GetxSignUpPresenter extends GetxController {
       }
       _isLoading.value = false;
     }
+  }
+
+  @override
+  void goToSignUp() {
+    _navigateTo.value = '/login';
   }
 }

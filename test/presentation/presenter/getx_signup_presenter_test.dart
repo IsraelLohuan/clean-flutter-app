@@ -300,8 +300,13 @@ void main() {
     sut.validatePassword(password);
     sut.validatePasswordConfirmation(passwordConfirmation);
 
-    sut.navigatoToStream.listen(expectAsync1((page) => expect(page, '/surveys')));
+    sut.navigateToStream.listen(expectAsync1((page) => expect(page, '/surveys')));
 
     await sut.signUp();
+  });
+
+  test('Should go to LoginPage on link click', () async {
+    sut.navigateToStream.listen(expectAsync1((page) => expect(page, '/login')));
+    sut.goToSignUp();
   });
 }
