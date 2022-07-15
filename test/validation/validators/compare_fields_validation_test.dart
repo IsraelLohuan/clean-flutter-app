@@ -9,6 +9,12 @@ void main() {
     sut = CompareFieldsValidation(field: 'any_field', fieldToCompare: 'any_value');  
   });
 
+  test('Should return null on invalid cases', () {
+    expect(sut.validate({'any_field': 'any_value'}), null);
+    expect(sut.validate({'other_field': 'any_value'}), null);
+    expect(sut.validate({}), null);
+  });
+
   test('Should return error if value are not equal', () {
     final formData = {
       'any_field': 'any_value',
