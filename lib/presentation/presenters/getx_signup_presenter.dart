@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'package:ForDev/domain/usecases/usecases.dart';
 import 'package:ForDev/ui/helpers/errors/errors.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
 import 'package:ForDev/presentation/protocol/protocols.dart';
 
 class GetxSignUpPresenter extends GetxController {
+  final AddAccount addAccount;
   final Validation validation;
  
   final _nameError = Rx<UiError>();
@@ -26,6 +28,7 @@ class GetxSignUpPresenter extends GetxController {
  
   GetxSignUpPresenter({
     @required this.validation, 
+    @required this.addAccount
   });
 
   void validateEmail(String email) {
@@ -72,5 +75,12 @@ class GetxSignUpPresenter extends GetxController {
     && _passwordConfirmation != null;
   }
 
-  void dispose() {}
+  Future<void> signUp() async {
+    await addAccount.add(AddAccountParams(
+      name: _name,
+      email: _email,
+      password: _password,
+      passwordConfirmation: _passwordConfirmation
+    ));
+  }
 }
