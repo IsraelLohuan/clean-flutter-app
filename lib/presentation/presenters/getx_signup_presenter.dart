@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:ForDev/domain/helpers/domain_error.dart';
 import 'package:ForDev/domain/usecases/usecases.dart';
 import 'package:ForDev/ui/helpers/errors/errors.dart';
 import 'package:get/get.dart';
@@ -13,8 +14,10 @@ class GetxSignUpPresenter extends GetxController {
   final _nameError = Rx<UiError>();
   final _emailError = Rx<UiError>();
   final _passwordError = Rx<UiError>();
+  final _mainError = Rx<UiError>();
   final _passwordConfirmationError = Rx<UiError>();
   final _isFormValid = false.obs;
+  final _isLoading = false.obs;
   
   String _name;
   String _email;
@@ -24,9 +27,11 @@ class GetxSignUpPresenter extends GetxController {
   Stream<UiError> get nameErrorStream  => _nameError.stream;
   Stream<UiError> get emailErrorStream => _emailError.stream;
   Stream<UiError> get passwordErrorStream => _passwordError.stream;
+  Stream<UiError> get mainErrorStream => _mainError.stream;
   Stream<UiError> get passwordConfirmationErrorStream =>_passwordConfirmationError.stream;
   Stream<bool>    get isFormValidStream => _isFormValid.stream;
- 
+  Stream<bool>    get isLoadingStream => _isLoading.stream;
+  
   GetxSignUpPresenter({
     @required this.validation, 
     @required this.addAccount,
@@ -78,12 +83,21 @@ class GetxSignUpPresenter extends GetxController {
   }
 
   Future<void> signUp() async {
-    final account = await addAccount.add(AddAccountParams(
-      name: _name,
-      email: _email,
-      password: _password,
-      passwordConfirmation: _passwordConfirmation
-    ));
-    await saveCurrentAccount.save(account);
+    try {
+      _isLoading.value = true;
+      final account = await addAccount.add(AddAccountParams(
+        name: _name,
+        email: _email,
+        password: _password,
+        passwordConfirmation: _passwordConfirmation
+      ));
+      await saveCurrentAccount.save(account);
+    } on DomainError catch(error) {
+      switch(error) {
+        case DomainError.invalidCredentials: _mainError.value = UiError.invalidCredentials; break;
+        default: _mainError.value = UiError.unexpected; break;
+      }
+      _isLoading.value = false;
+    }
   }
 }
