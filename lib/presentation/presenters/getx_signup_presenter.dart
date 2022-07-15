@@ -7,9 +7,11 @@ import 'package:ForDev/presentation/protocol/protocols.dart';
 class GetxSignUpPresenter extends GetxController {
   final Validation validation;
  
+  var _nameError = Rx<UiError>();
   var _emailError = Rx<UiError>();
   var _isFormValid = false.obs;
   
+  Stream<UiError> get nameErrorStream  => _nameError.stream;
   Stream<UiError> get emailErrorStream => _emailError.stream;
   Stream<bool>    get isFormValidStream => _isFormValid.stream;
  
@@ -19,6 +21,11 @@ class GetxSignUpPresenter extends GetxController {
 
   void validateEmail(String email) {
     _emailError.value = _validateField(field: 'email', value: email);  
+    _validateForm();
+  }
+
+  void validateName(String name) {
+    _nameError.value = _validateField(field: 'name', value: name);
     _validateForm();
   }
 
