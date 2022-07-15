@@ -1,8 +1,9 @@
 import 'package:ForDev/presentation/protocol/protocols.dart';
 import 'package:ForDev/validation/protocols/protocols.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-class CompareFieldsValidation implements FieldValidation {
+class CompareFieldsValidation  extends Equatable implements FieldValidation {
   final String field;
   final String fieldToCompare;
 
@@ -13,4 +14,7 @@ class CompareFieldsValidation implements FieldValidation {
     input[field] != null &&
       input[fieldToCompare] != null &&
       input[field] != input[fieldToCompare] ? ValidationError.invalidField : null;
+
+  @override
+  List get props => [field, fieldToCompare];
 }
