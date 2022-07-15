@@ -1,5 +1,6 @@
 
 import 'package:ForDev/domain/entities/account_entity.dart';
+import 'package:ForDev/domain/helpers/helpers.dart';
 import 'package:ForDev/domain/usecases/usecases.dart';
 import 'package:ForDev/presentation/presenters/presenters.dart';
 import 'package:ForDev/presentation/protocol/protocols.dart';
@@ -10,11 +11,13 @@ import 'package:test/test.dart';
 
 class ValidationSpy extends Mock implements Validation {}
 class AddAccountSpy extends Mock implements AddAccount {}
+class SaveCurrentAccountSpy extends Mock implements SaveCurrentAccount {}
 
 void main() {
   GetxSignUpPresenter sut;
   ValidationSpy validation;
   AddAccountSpy addAccount;
+  SaveCurrentAccountSpy saveCurrentAccount;
   String email;
   String name;
   String password;
@@ -34,12 +37,20 @@ void main() {
     mockAddAccountCall().thenAnswer((_) async => AccountEntity(token));
   }
 
+  PostExpectation mockSaveCurrentAccountCall() => when(saveCurrentAccount.save(any));
+
+  void mockSaveCurrentAccountError() {
+    mockSaveCurrentAccountCall().thenThrow(DomainError.unexpected);
+  }
+
   setUp(() {
     addAccount = AddAccountSpy();
     validation = ValidationSpy();
+    saveCurrentAccount = SaveCurrentAccountSpy();
     sut = GetxSignUpPresenter(
       validation: validation, 
-      addAccount: addAccount
+      addAccount: addAccount,
+      saveCurrentAccount: saveCurrentAccount
     );
     email = faker.internet.email();
     name = faker.person.name();
@@ -216,5 +227,16 @@ void main() {
       password: password,
       passwordConfirmation: passwordConfirmation
     )));
+  });
+
+  test('Should call SaveCurrentAccount with correct value', () async {
+    sut.validateName(name);
+    sut.validateEmail(email);
+    sut.validatePassword(password);
+    sut.validatePasswordConfirmation(passwordConfirmation);
+
+    await sut.signUp();
+
+    verify(saveCurrentAccount.save(AccountEntity(token))).called(1);
   });
 }
