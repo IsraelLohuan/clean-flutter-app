@@ -7,7 +7,7 @@ import 'package:meta/meta.dart';
 
 class RemoteLoadSurveys implements LoadSurveys {
   final String url;
-  final HttpClient<List<Map>> httpClient;
+  final HttpClient httpClient;
 
   RemoteLoadSurveys({
     @required this.httpClient,
