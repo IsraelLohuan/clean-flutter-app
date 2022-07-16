@@ -30,8 +30,8 @@ void main() {
   }
 
   List<SurveyViewModel> makeSurveys() => [
-    SurveyViewModel(id: '1', question: 'Question 1', date: 'Any Date', didAnswer: true),
-    SurveyViewModel(id: '1', question: 'Question 2', date: 'Any Date', didAnswer: false),
+    SurveyViewModel(id: '1', question: 'Question 1', date: 'Date 1', didAnswer: true),
+    SurveyViewModel(id: '1', question: 'Question 2', date: 'Date 2', didAnswer: false),
   ];
 
   tearDown(() {
@@ -100,5 +100,29 @@ void main() {
     expect(find.text('Recarregar'), findsNothing);
     expect(find.text('Question 1'), findsWidgets);
     expect(find.text('Question 2'), findsWidgets);
+  });
+
+  testWidgets('Should present list if loadSurveysStream succeeds', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    loadSurveysController.add(makeSurveys());
+    await tester.pump();
+
+    expect(find.text('Algo errado aconteceu. Tente novamente em breve.'), findsNothing);
+    expect(find.text('Recarregar'), findsNothing);
+    expect(find.text('Question 1'), findsWidgets);
+    expect(find.text('Question 2'), findsWidgets);
+    expect(find.text('Date 1'), findsWidgets);
+    expect(find.text('Date 2'), findsWidgets);
+  });
+
+  testWidgets('Should call LoadSurveys on reload button click', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    loadSurveysController.addError(UiError.unexpected.description);
+    await tester.pump();
+    await tester.tap(find.text('Recarregar'));
+
+    verify(presenter.loadData()).called(2);
   });
 }
