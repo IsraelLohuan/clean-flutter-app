@@ -12,8 +12,7 @@ void main() {
   LocalStorageSpy localStorage;
   String key;
   dynamic value;
-  String result;
-
+ 
   void mockDeleteError() => when(localStorage.deleteItem(any)).thenThrow(Exception());
   void mockSaveError() => when(localStorage.setItem(any, any)).thenThrow(Exception());
   
@@ -66,8 +65,13 @@ void main() {
   });
 
   group('fetch', () {
-    void mockFetch() => when(localStorage.getItem(any)).thenAnswer((_) async => result);
+    String result;
 
+    PostExpectation mockFetchCall() => when(localStorage.getItem(any));
+
+    void mockFetch() => mockFetchCall().thenAnswer((_) async => result);
+    void mockFetchError() => mockFetchCall().thenThrow(Exception());
+   
     setUp(() {
       mockFetch();
     });
@@ -82,6 +86,14 @@ void main() {
       final data = await sut.fetch(key);
 
       expect(data, result);
+    });
+
+    test('Should throw if getItem throws', () async {  
+      mockFetchError();
+
+      final future = sut.fetch(key);
+
+      expect(future, throwsA(TypeMatcher<Exception>()));
     });
   });
 }
