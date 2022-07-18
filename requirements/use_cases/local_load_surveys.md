@@ -29,6 +29,7 @@
 # Local Save Surveys
 
 > ## Caso de sucesso
-1. Sistema valida os dados das enquetes
-2. Sistema apaga os dados do Cache antigo
-3. Sistema grava os novos dados do cache
+1. ✔️ Sistema grava os novos dados do cache
+
+> ## Exceção - Erro ao apagar dados do cache
+1. Sistema retorna uma mensagem de erro inesperado
