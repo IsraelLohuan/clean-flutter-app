@@ -1,6 +1,6 @@
 Feature: Listar Enquetes
 Como um cliente
-Quero poder ver todas as enquetes 
+Quero poder ver todas as enquetes
 Para poder saber o resultado e poder dar minha opinião
 
 Cenário: Com internet
