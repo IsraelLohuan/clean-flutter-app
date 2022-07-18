@@ -16,6 +16,6 @@ class SurveyEntity extends Equatable {
 
   @override
   List get props => [
-    id, question, dateTime, didAnswer
+    'id', 'question', 'dateTime', 'didAnswer'
   ];
 }
