@@ -235,5 +235,13 @@ void main() {
 
       verify(cacheStorage.save(key: 'surveys', value: list)).called(1);
     });
+
+    test('Should throw UnexpectedError if save throws', () async {
+      mockSaveError();
+
+      final future = sut.save(surveys);
+
+      expect(future, throwsA(DomainError.unexpected));
+    });
   });
 }

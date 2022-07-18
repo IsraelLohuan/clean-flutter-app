@@ -32,4 +32,4 @@
 1. ✔️ Sistema grava os novos dados do cache
 
 > ## Exceção - Erro ao apagar dados do cache
-1. Sistema retorna uma mensagem de erro inesperado
+1. ✔️ Sistema retorna uma mensagem de erro inesperado
