@@ -8,7 +8,7 @@
 1. ✔️ Sistema retorna uma mensagem de erro inesperado
 
 > ## Exceção - Dados inválidos no cache
-1. Sistema retorna uma mensagem de erro inesperado
+1. ✔️ Sistema retorna uma mensagem de erro inesperado
 
 ---  
 
