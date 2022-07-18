@@ -145,6 +145,8 @@ void main() {
 
     PostExpectation mockFetchCall() => when(cacheStorage.fetch(any));
 
+    void mockFetchError() => mockFetchCall().thenThrow(Exception());  
+
     void mockFetch(List<Map> list) {
       data = list;
       mockFetchCall().thenAnswer((_) async => data);  
@@ -178,10 +180,7 @@ void main() {
     });
 
     test('Should delete cache if it is incomplete', () async {
-      mockFetch([{
-        'date': '2020-07-20T00:00:00Z',
-        'didAnswer': 'false'
-      }]);
+      mockFetchError();
 
       await sut.validate();
 
