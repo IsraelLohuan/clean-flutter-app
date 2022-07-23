@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:ForDev/ui/helpers/errors/errors.dart';
 import 'package:ForDev/ui/pages/pages.dart';
-import 'package:ForDev/ui/pages/survey_result/components/survey_result.dart';
+import 'package:ForDev/ui/pages/survey_result/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
