@@ -1,3 +1,4 @@
+import 'package:ForDev/ui/components/components.dart';
 import 'package:ForDev/ui/components/spinner_dialog.dart';
 import 'package:ForDev/ui/helpers/helpers.dart';
 import 'package:ForDev/ui/pages/surveys/components/components.dart';
@@ -34,19 +35,9 @@ class SurveysPage extends StatelessWidget {
             stream: presenter.surveysStream,
             builder: (context, snapshot) {
               if(snapshot.hasError) {
-                return Padding(
-                  padding: const EdgeInsets.all(40),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(snapshot.error, style: TextStyle(fontSize: 16), textAlign: TextAlign.center,),
-                      SizedBox(height: 10,),
-                      RaisedButton(
-                        child: Text(R.strings.reload),
-                        onPressed: presenter.loadData,
-                      )
-                    ],
-                  ),
+                return ReloadScreen(
+                  error: snapshot.error, 
+                  reload: presenter.loadData,
                 );
               }
 
@@ -73,4 +64,5 @@ class SurveysPage extends StatelessWidget {
     );
   }
 }
+
 
