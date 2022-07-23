@@ -3,7 +3,6 @@ import 'package:ForDev/ui/components/spinner_dialog.dart';
 import 'package:ForDev/ui/helpers/helpers.dart';
 import 'package:ForDev/ui/pages/surveys/components/components.dart';
 import 'package:ForDev/ui/pages/surveys/surveys.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class SurveysPage extends StatelessWidget {
@@ -42,16 +41,7 @@ class SurveysPage extends StatelessWidget {
               }
 
               if(snapshot.hasData) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: CarouselSlider(
-                    options: CarouselOptions(
-                      enlargeCenterPage: true,
-                      aspectRatio: 1,
-                    ),
-                    items: snapshot.data.map((viewModel) => SurveyItem(viewModel)).toList(),
-                  ),
-                );
+                return SurveyItems(snapshot.data);
               }
 
               return SizedBox(
@@ -64,5 +54,7 @@ class SurveysPage extends StatelessWidget {
     );
   }
 }
+
+
 
 
