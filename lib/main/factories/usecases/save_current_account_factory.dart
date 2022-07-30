@@ -5,6 +5,6 @@ import 'package:ForDev/main/factories/cache/secure_storage_adapter_factory.dart'
 
 SaveCurrentAccount makeLocalSaveCurrentAccount() {
   return LocalSaveCurrentAccount(
-    saveSecureCacheStorage: makeSecureStorageAdapter()
+    saveCacheStorage: makeSecureStorageAdapter()
   );
 }

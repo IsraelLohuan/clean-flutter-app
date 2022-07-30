@@ -5,13 +5,13 @@ import 'package:ForDev/domain/usecases/usecases.dart';
 import 'package:meta/meta.dart';
 
 class LocalLoadCurrentAccount implements LoadCurrentAccount {
-  FetchSecureCacheStorage fetchSecureCacheStorage;
+  FetchSecureCacheStorage fetchCacheStorage;
 
-  LocalLoadCurrentAccount({@required this.fetchSecureCacheStorage});
+  LocalLoadCurrentAccount({@required this.fetchCacheStorage});
 
   Future<AccountEntity> load() async {
     try {
-      final token = await fetchSecureCacheStorage.fetchSecure('token');
+      final token = await fetchCacheStorage.fetch('token');
       return AccountEntity(token);
     } catch(error) {
       throw DomainError.unexpected;

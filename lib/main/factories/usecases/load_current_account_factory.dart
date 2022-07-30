@@ -4,6 +4,6 @@ import 'package:ForDev/main/factories/cache/secure_storage_adapter_factory.dart'
 
 LoadCurrentAccount makeLocalLoadCurrentAccount() {
   return LocalLoadCurrentAccount(
-    fetchSecureCacheStorage: makeSecureStorageAdapter()
+    fetchCacheStorage: makeSecureStorageAdapter()
   );
 }

@@ -14,7 +14,7 @@ void main() {
   FetchSecureCacheStorageSpy fetchSecureCacheStorage;
   String token;
 
-  PostExpectation mockFetchSecureCall() => when(fetchSecureCacheStorage.fetchSecure(any));
+  PostExpectation mockFetchSecureCall() => when(fetchSecureCacheStorage.fetch(any));
 
   void mockFetchSecure() {
     mockFetchSecureCall().thenAnswer((_) async => token);
@@ -26,7 +26,7 @@ void main() {
 
   setUp(() {
     fetchSecureCacheStorage = FetchSecureCacheStorageSpy();
-    sut = LocalLoadCurrentAccount(fetchSecureCacheStorage: fetchSecureCacheStorage);
+    sut = LocalLoadCurrentAccount(fetchCacheStorage: fetchSecureCacheStorage);
     token = faker.guid.guid();
     mockFetchSecure();
   });
@@ -35,7 +35,7 @@ void main() {
     
     await sut.load();
 
-    verify(fetchSecureCacheStorage.fetchSecure('token'));
+    verify(fetchSecureCacheStorage.fetch('token'));
   });
 
   test('Should return an AccountEntity', () async {
