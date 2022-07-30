@@ -69,7 +69,7 @@ void main() {
   test('Should call local save with remote data', () async {
     await sut.loadBySurvey(surveyId: surveyId);
 
-    verify(local.save(remoteResult, surveyId)).called(1);
+    verify(local.save(remoteResult)).called(1);
   });
 
   test('Should return remote data', () async {
