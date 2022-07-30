@@ -10,9 +10,11 @@ class GetxSurveyResultPresenter implements SurveyResultPresenter {
   final String surveyId;
 
   final _isLoading = true.obs;
+  final _isSessionExpiredStream = RxBool(); 
   final _surveyResult = Rx<SurveyResultViewModel>();
-
+  
   Stream<bool> get isLoadingStream => _isLoading.stream;
+  Stream<bool> get isSessionExpiredStream => _isSessionExpiredStream.stream;
   Stream<SurveyResultViewModel> get surveyResultStream => _surveyResult.stream;
 
   GetxSurveyResultPresenter({
