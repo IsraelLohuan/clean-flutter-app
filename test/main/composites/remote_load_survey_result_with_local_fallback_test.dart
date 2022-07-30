@@ -10,7 +10,7 @@ import 'package:meta/meta.dart';
 
 class RemoteLoadSurveyResultWithLocalFallback implements LoadSurveyResult {
   final RemoteLoadSurveyResult remote;
-  final LocalLoadSurveyResultSpy local;
+  final LocalLoadSurveyResult local;
 
   RemoteLoadSurveyResultWithLocalFallback({
     @required this.remote,
@@ -71,6 +71,8 @@ void main() {
     mockLocalLoadCall().thenAnswer((_) async => localResult);
   }
 
+  void mockLocalLoadError() => mockLocalLoadCall().thenThrow(DomainError.unexpected);
+
   setUp(() {
     surveyId = faker.guid.guid();
     remote = RemoteLoadSurveyResultSpy();
@@ -124,5 +126,14 @@ void main() {
     final response = await sut.loadBySurvey(surveyId: surveyId);
 
     expect(response, localResult);
+  });
+
+  test('Should throw UnexpectedError if loca load fails', () async {
+    mockRemoteLoadError(DomainError.unexpected);
+    mockLocalLoadError();
+
+    final future = sut.loadBySurvey(surveyId: surveyId);
+
+    expect(future, throwsA(DomainError.unexpected));
   });
 }
