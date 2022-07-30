@@ -1,6 +1,7 @@
 
 import 'package:ForDev/data/cache/cache.dart';
 import 'package:ForDev/data/usecases/load_survey_result/load_survey_result.dart';
+import 'package:ForDev/data/usecases/usecases.dart';
 import 'package:ForDev/domain/entities/entities.dart';
 import 'package:ForDev/domain/helpers/domain_error.dart';
 import 'package:faker/faker.dart';
@@ -208,6 +209,72 @@ void main() {
       await sut.validate(surveyId);
 
       verify(cacheStorage.delete('survey_result/$surveyId')).called(1);
+    });
+  });
+
+  group('save', () {
+    LocalLoadSurveyResult sut;
+    CacheStorageSpy cacheStorage;
+    SurveyResultEntity surveyResult;
+    String surveyId;
+
+    PostExpectation mockSaveCall() => when(cacheStorage.save(key: anyNamed('key'), value: anyNamed('value')));
+
+    void mockSaveError() => mockSaveCall().thenThrow(Exception());
+
+    SurveyResultEntity mockSurveyResult() => SurveyResultEntity(
+      surveyId: faker.guid.guid(),
+      question: faker.lorem.sentence(),
+      answers: [
+        SurveyAnswerEntity(
+          image: faker.internet.httpUrl(),
+          answer: faker.lorem.sentence(),
+          isCurrentAnswer: true,
+          percent: 40
+        ),
+        SurveyAnswerEntity(
+          answer: faker.lorem.sentence(),
+          isCurrentAnswer: false,
+          percent: 60
+        )
+      ]
+    );
+
+    setUp(() {
+      surveyId = faker.guid.guid();
+      cacheStorage = CacheStorageSpy();
+      sut = LocalLoadSurveyResult(cacheStorage: cacheStorage);
+      surveyResult = mockSurveyResult();
+    });
+
+    test('Should call cacheStorage with correct values', () async {
+      final json = {
+        'surveyId': surveyResult.surveyId,
+        'question': surveyResult.question,
+        'answers': [{
+          'image': surveyResult.answers[0].image,
+          'answer': surveyResult.answers[0].answer,
+          'percent': '40',
+          'isCurrentAnswer': 'true'
+        },{
+          'image': null,
+          'answer': surveyResult.answers[1].answer,
+          'percent': '60',
+          'isCurrentAnswer': 'false'
+        },]
+      };
+
+      await sut.save(surveyResult, surveyId);
+
+      verify(cacheStorage.save(key: 'survey_result/$surveyId', value: json)).called(1);
+    });
+
+    test('Should throw UnexpectedError if save throws', () async {
+      mockSaveError();
+
+      final future = sut.save(surveyResult, 'survey_result/$surveyId');
+
+      expect(future, throwsA(DomainError.unexpected));
     });
   });
 }

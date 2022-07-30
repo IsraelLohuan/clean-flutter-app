@@ -1,6 +1,6 @@
-
-import 'package:ForDev/domain/entities/entities.dart';
 import 'package:meta/meta.dart';
+
+import '../../domain/entities/entities.dart';
 
 class LocalSurveyAnswerModel {
   final String image;
@@ -10,13 +10,13 @@ class LocalSurveyAnswerModel {
 
   LocalSurveyAnswerModel({
     this.image,
-    @required this.answer, 
-    @required this.isCurrentAnswer,   
-    @required this.percent
+    @required this.answer,
+    @required this.isCurrentAnswer,
+    @required this.percent,
   });
 
   factory LocalSurveyAnswerModel.fromJson(Map json) {
-    if(!json.keys.toSet().containsAll(['answer', 'isCurrentAnswer', 'percent'])) {
+    if (!json.keys.toSet().containsAll(['answer', 'isCurrentAnswer', 'percent'])) {
       throw Exception();
     }
     return LocalSurveyAnswerModel(
@@ -27,10 +27,24 @@ class LocalSurveyAnswerModel {
     );
   }
 
+  factory LocalSurveyAnswerModel.fromEntity(SurveyAnswerEntity entity) => LocalSurveyAnswerModel(
+    image: entity.image,
+    answer: entity.answer,
+    percent: entity.percent,
+    isCurrentAnswer: entity.isCurrentAnswer
+  );
+
   SurveyAnswerEntity toEntity() => SurveyAnswerEntity(
     image: image,
     answer: answer,
     isCurrentAnswer: isCurrentAnswer,
     percent: percent
   );
+
+  Map toJson() => {
+    'image': image,
+    'answer': answer,
+    'isCurrentAnswer': isCurrentAnswer.toString(),
+    'percent': percent.toString()
+  };
 }
