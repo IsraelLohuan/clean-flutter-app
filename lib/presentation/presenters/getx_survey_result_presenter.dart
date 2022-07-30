@@ -7,7 +7,7 @@ import 'package:ForDev/ui/pages/pages.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
 
-class GetxSurveyResultPresenter with LoadingManager, SessionManager implements SurveyResultPresenter {
+class GetxSurveyResultPresenter extends GetxController with LoadingManager, SessionManager implements SurveyResultPresenter {
   final LoadSurveyResult loadSurveyResult;
   final String surveyId;
   final _surveyResult = Rx<SurveyResultViewModel>();
