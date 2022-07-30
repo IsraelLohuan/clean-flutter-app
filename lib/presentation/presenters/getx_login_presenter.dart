@@ -1,13 +1,15 @@
 import 'dart:async';
 import 'package:ForDev/domain/helpers/domain_error.dart';
 import 'package:ForDev/domain/usecases/usecases.dart';
+import 'package:ForDev/presentation/mixins/loading_manager.dart';
 import 'package:ForDev/ui/helpers/errors/errors.dart';
 import 'package:ForDev/ui/pages/pages.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
 import 'package:ForDev/presentation/protocol/protocols.dart';
 
-class GetxLoginPresenter extends GetxController implements LoginPresenter {
+class GetxLoginPresenter extends GetxController with LoadingManager implements LoginPresenter {
+
   final Validation validation;
   final Authentication authentication;
   final SaveCurrentAccount saveCurrentAccount;
@@ -20,15 +22,13 @@ class GetxLoginPresenter extends GetxController implements LoginPresenter {
   var _mainError = Rx<UiError>();
   var _navigateTo = RxString();
   var _isFormValid = false.obs;
-  var _isLoading = false.obs;
-
+ 
   Stream<UiError> get emailErrorStream => _emailError.stream;
   Stream<UiError> get passwordErrorStream => _passwordError.stream;
   Stream<UiError> get mainErrorStream => _mainError.stream;
   Stream<String>  get navigateToStream => _navigateTo.stream;
   Stream<bool>    get isFormValidStream => _isFormValid.stream;
-  Stream<bool>    get isLoadingStream => _isLoading.stream;
-
+ 
   GetxLoginPresenter({
     @required this.validation, 
     @required this.authentication, 
@@ -70,7 +70,7 @@ class GetxLoginPresenter extends GetxController implements LoginPresenter {
   Future<void> auth() async {
     try {
       _mainError.value = null;
-      _isLoading.value = true;
+      isLoading = true;
       final account = await authentication.auth(AuthenticationParams(email: _email, secret: _password));
       await saveCurrentAccount.save(account);
       _navigateTo.value = '/surveys';
@@ -79,7 +79,7 @@ class GetxLoginPresenter extends GetxController implements LoginPresenter {
         case DomainError.invalidCredentials: _mainError.value = UiError.invalidCredentials; break;
         default: _mainError.value = UiError.unexpected;
       }
-      _isLoading.value = false;
+      isLoading = false;
     }
   }
 
