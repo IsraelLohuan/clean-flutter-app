@@ -9,7 +9,7 @@ class SurveyViewModel extends Equatable {
 
   @override
   List get props => [
-    'id', 'question', 'date', 'didAnswer'
+    id, question, date, didAnswer
   ];
 
   SurveyViewModel({

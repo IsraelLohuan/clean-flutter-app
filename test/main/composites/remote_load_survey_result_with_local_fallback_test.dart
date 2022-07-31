@@ -7,6 +7,8 @@ import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
+import '../../mocks/mocks.dart';
+
 class RemoteLoadSurveyResultSpy extends Mock implements RemoteLoadSurveyResult {}
 class LocalLoadSurveyResultSpy extends Mock implements LocalLoadSurveyResult {}
 
@@ -20,20 +22,8 @@ void main() {
 
   PostExpectation mockRemoteLoadCall() => when(remote.loadBySurvey(surveyId: anyNamed('surveyId')));
 
-  SurveyResultEntity mockSurveyResult() {
-    return SurveyResultEntity(
-      surveyId: faker.guid.guid(),
-      question: faker.lorem.sentence(),
-      answers: [SurveyAnswerEntity(
-        answer: faker.lorem.sentence(),
-        percent: faker.randomGenerator.integer(100),
-        isCurrentAnswer: faker.randomGenerator.boolean()
-      )]
-    );
-  }
-
   void mockRemoteLoad() {
-    remoteResult = mockSurveyResult();
+    remoteResult = FakeSurveyResultFactory.makeEntity();
     mockRemoteLoadCall().thenAnswer((_) async => remoteResult);
   }
 
@@ -42,7 +32,7 @@ void main() {
   PostExpectation mockLocalLoadCall() => when(local.loadBySurvey(surveyId: anyNamed('surveyId')));
 
   void mockLocalLoad() {
-    localResult = mockSurveyResult();
+    localResult = FakeSurveyResultFactory.makeEntity();
     mockLocalLoadCall().thenAnswer((_) async => localResult);
   }
 

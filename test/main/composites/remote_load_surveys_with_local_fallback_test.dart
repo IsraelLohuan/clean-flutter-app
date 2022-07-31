@@ -4,7 +4,7 @@ import 'package:ForDev/data/usecases/usecases.dart';
 import 'package:ForDev/domain/entities/entities.dart';
 import 'package:ForDev/domain/helpers/domain_error.dart';
 import 'package:ForDev/main/composites/composites.dart';
-import 'package:faker/faker.dart';
+import '../../mocks/mocks.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
@@ -18,19 +18,10 @@ void main() {
   List<SurveyEntity> remoteSurveys;
   List<SurveyEntity> localSurveys;
 
-  List<SurveyEntity> mockSurveys() => [
-    SurveyEntity(
-      id: faker.guid.guid(), 
-      question: faker.randomGenerator.string(10), 
-      dateTime: faker.date.dateTime(), 
-      didAnswer: faker.randomGenerator.boolean()
-    )
-  ];
-
   PostExpectation mockRemoteLoadCall() => when(remote.load());
 
   void mockRemoteLoad() {
-    remoteSurveys = mockSurveys();
+    remoteSurveys = FakeSurveysFactory.makeEntities();
     mockRemoteLoadCall().thenAnswer((_) async => remoteSurveys);
   }
 
@@ -40,7 +31,7 @@ void main() {
   PostExpectation mockLocalLoadCall() => when(local.load());
 
   void mockLocalLoad() {
-    localSurveys = mockSurveys();
+    localSurveys = FakeSurveysFactory.makeEntities();
     mockLocalLoadCall().thenAnswer((_) async => localSurveys);
   }
 
@@ -94,6 +85,8 @@ void main() {
   });
 
   test('Should return local surveys', () async {
+    mockRemoteLoadError(DomainError.unexpected);
+
     final surveys = await sut.load();
 
     expect(surveys, localSurveys);
