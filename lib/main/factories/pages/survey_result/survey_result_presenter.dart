@@ -5,5 +5,6 @@ import 'package:ForDev/ui/pages/pages.dart';
 
 SurveyResultPresenter makeGetxSurveyResultPresenter(String surveyId) =>  GetxSurveyResultPresenter(
   loadSurveyResult: makeRemoteLoadSurveyResultWithLocalFallback(surveyId), 
-  surveyId: surveyId
+  saveSurveyResult: makeRemoteSaveSurveyResult(surveyId),
+  surveyId: surveyId, 
 );
