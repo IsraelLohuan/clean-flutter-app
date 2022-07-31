@@ -1,3 +1,4 @@
+import 'package:ForDev/domain/entities/entities.dart';
 import 'package:ForDev/domain/helpers/helpers.dart';
 import 'package:ForDev/domain/usecases/usecases.dart';
 import 'package:ForDev/presentation/mixins/loading_manager.dart';
@@ -9,6 +10,8 @@ import 'package:meta/meta.dart';
 
 class GetxSurveyResultPresenter extends GetxController with LoadingManager, SessionManager implements SurveyResultPresenter {
   final LoadSurveyResult loadSurveyResult;
+  final SaveSurveyResult saveSurveyResult;
+
   final String surveyId;
   final _surveyResult = Rx<SurveyResultViewModel>();
   
@@ -16,7 +19,8 @@ class GetxSurveyResultPresenter extends GetxController with LoadingManager, Sess
 
   GetxSurveyResultPresenter({
     @required this.loadSurveyResult, 
-    @required this.surveyId
+    @required this.saveSurveyResult,
+    @required this.surveyId,
   });
 
   Future<void> loadData() async {
@@ -47,6 +51,6 @@ class GetxSurveyResultPresenter extends GetxController with LoadingManager, Sess
   }
 
   Future<void> save({@required String answer}) async {
-    
+    await saveSurveyResult.save(answer: answer);
   }
 }
