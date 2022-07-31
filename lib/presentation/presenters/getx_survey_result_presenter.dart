@@ -7,6 +7,7 @@ import 'package:ForDev/ui/helpers/errors/errors.dart';
 import 'package:ForDev/ui/pages/pages.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
+import 'package:ForDev/presentation/helpers/helpers.dart';
 
 class GetxSurveyResultPresenter extends GetxController with LoadingManager, SessionManager implements SurveyResultPresenter {
   final LoadSurveyResult loadSurveyResult;
@@ -34,19 +35,8 @@ class GetxSurveyResultPresenter extends GetxController with LoadingManager, Sess
   Future<void> showResultOnAction(Future<SurveyResultEntity> action()) async {
     try {
       isLoading = true;
-
       final surveyResult = await action();
-
-      _surveyResult.value = SurveyResultViewModel(
-        surveyId: surveyResult.surveyId,
-        question: surveyResult.question,
-        answers: surveyResult.answers.map((answer) => SurveyAnswerViewModel(
-          image: answer.image,
-          answer: answer.answer,
-          percent: '${answer.percent}%',
-          isCurrentAnswer: answer.isCurrentAnswer
-        )).toList()
-      );
+      _surveyResult.subject.add(surveyResult.toViewModel());
     } on DomainError catch(error) {
       if(error == DomainError.accessDenied) {
         isSessionExpired = true;
@@ -58,3 +48,4 @@ class GetxSurveyResultPresenter extends GetxController with LoadingManager, Sess
     }
   }
 }
+
