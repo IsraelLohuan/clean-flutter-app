@@ -48,15 +48,16 @@ void main() {
     mockLoadSurveyResultCall().thenAnswer((_) async => loadResult);
   }
 
-  void mockLoadSurveyResultError() => mockLoadSurveyResultCall().thenThrow(DomainError.unexpected);
-  void mockAccessDeniedError() => mockLoadSurveyResultCall().thenThrow(DomainError.accessDenied);
-
+  void mockLoadSurveyResultError(DomainError error) => mockLoadSurveyResultCall().thenThrow(error);
+ 
   PostExpectation mockSaveSurveyResultCall() => when(saveSurveyResult.save(answer: anyNamed('answer')));
 
   void mockSaveSurveyResult(SurveyResultEntity data) {
     saveResult = data;
     mockSaveSurveyResultCall().thenAnswer((_) async => loadResult);
   }
+
+  void mockSaveSurveyResultError(DomainError error) => mockSaveSurveyResultCall().thenThrow(error);
 
   setUp(() {
     surveyId = faker.guid.guid();
@@ -103,7 +104,7 @@ void main() {
     });
 
     test('Should emit correct events on failure', () async {
-      mockLoadSurveyResultError();
+      mockLoadSurveyResultError(DomainError.unexpected);
 
       expectLater(sut.isLoadingStream, emitsInOrder([true, false]));
       sut.surveyResultStream.listen(null, onError: expectAsync1((error) => expect(error, UiError.unexpected.description)));
@@ -112,7 +113,7 @@ void main() {
     });
 
     test('Should emit correct events on access denied', () async {
-      mockAccessDeniedError();
+      mockLoadSurveyResultError(DomainError.accessDenied);
 
       expectLater(sut.isLoadingStream, emitsInOrder([true, false]));
       expectLater(sut.isSessionExpiredStream, emits(true));
@@ -148,6 +149,24 @@ void main() {
         ], 
       ))));
 
+      await sut.save(answer: answer);
+    });
+
+    test('Should emit correct events on failure', () async {
+      mockSaveSurveyResultError(DomainError.unexpected);
+
+      expectLater(sut.isLoadingStream, emitsInOrder([true, false]));
+      sut.surveyResultStream.listen(null, onError: expectAsync1((error) => expect(error, UiError.unexpected.description)));
+
+      await sut.save(answer: answer);
+    });
+
+    test('Should emit correct events on access denied', () async {
+      mockSaveSurveyResultError(DomainError.accessDenied);
+
+      expectLater(sut.isLoadingStream, emitsInOrder([true, false]));
+      expectLater(sut.isSessionExpiredStream, emits(true));
+      
       await sut.save(answer: answer);
     });
   });
