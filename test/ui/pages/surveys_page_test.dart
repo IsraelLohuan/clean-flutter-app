@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 import '../helpers/helpers.dart';
+import '../../mocks/mocks.dart';
 
 class SurveysPresenterSpy extends Mock implements SurveysPresenter {}
 
@@ -37,11 +38,6 @@ void main() {
     navigateToController.close();
     isSessionExpiredController.close();
   }
-
-  List<SurveyViewModel> makeSurveys() => [
-    SurveyViewModel(id: '1', question: 'Question 1', date: 'Date 1', didAnswer: true),
-    SurveyViewModel(id: '1', question: 'Question 2', date: 'Date 2', didAnswer: false),
-  ];
 
   tearDown(() {
     closeStreams();
@@ -104,7 +100,7 @@ void main() {
   testWidgets('Should present list if surveysStream succeeds', (WidgetTester tester) async {
     await loadPage(tester);
 
-    loadSurveysController.add(makeSurveys());
+    loadSurveysController.add(FakeSurveysFactory.makeSurveys());
     await tester.pump();
 
     expect(find.text('Algo errado aconteceu. Tente novamente em breve.'), findsNothing);
@@ -116,7 +112,7 @@ void main() {
   testWidgets('Should present list if surveysStream succeeds', (WidgetTester tester) async {
     await loadPage(tester);
 
-    loadSurveysController.add(makeSurveys());
+    loadSurveysController.add(FakeSurveysFactory.makeSurveys());
     await tester.pump();
 
     expect(find.text('Algo errado aconteceu. Tente novamente em breve.'), findsNothing);
@@ -140,7 +136,7 @@ void main() {
   testWidgets('Should call gotoSurveyResult on survey click', (WidgetTester tester) async {
     await loadPage(tester);
 
-    loadSurveysController.add(makeSurveys());
+    loadSurveysController.add(FakeSurveysFactory.makeSurveys());
     await tester.pump();
 
     await tester.tap(find.text('Question 1'));

@@ -1,4 +1,5 @@
 import 'package:ForDev/domain/entities/entities.dart';
+import 'package:ForDev/ui/pages/survey_result/survey_result.dart';
 import 'package:faker/faker.dart';
 
 class FakeSurveyResultFactory {
@@ -50,6 +51,24 @@ class FakeSurveyResultFactory {
         isCurrentAnswer: false,
         percent: 60
       )
+    ]
+  );
+
+  static SurveyResultViewModel makeViewModel() => SurveyResultViewModel(
+    surveyId: 'Any id', 
+    question: 'Question', 
+    answers: [
+      SurveyAnswerViewModel(
+        image: 'Image 0', 
+        answer: 'Answer 0', 
+        isCurrentAnswer: true, 
+        percent: '60%'
+      ),
+      SurveyAnswerViewModel(
+        answer: 'Answer 1', 
+        isCurrentAnswer: false, 
+        percent: '40%'
+      ),
     ]
   );
 
