@@ -1,6 +1,6 @@
 
-import 'package:ForDev/data/http/http.dart';
-import 'package:ForDev/infra/http/http.dart';
+import 'package:forDev/data/http/http.dart';
+import 'package:forDev/infra/http/http.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';

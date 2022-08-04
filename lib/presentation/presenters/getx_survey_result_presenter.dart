@@ -1,13 +1,13 @@
-import 'package:ForDev/domain/entities/entities.dart';
-import 'package:ForDev/domain/helpers/helpers.dart';
-import 'package:ForDev/domain/usecases/usecases.dart';
-import 'package:ForDev/presentation/mixins/loading_manager.dart';
-import 'package:ForDev/presentation/mixins/mixins.dart';
-import 'package:ForDev/ui/helpers/errors/errors.dart';
-import 'package:ForDev/ui/pages/pages.dart';
+import 'package:forDev/domain/entities/entities.dart';
+import 'package:forDev/domain/helpers/helpers.dart';
+import 'package:forDev/domain/usecases/usecases.dart';
+import 'package:forDev/presentation/mixins/loading_manager.dart';
+import 'package:forDev/presentation/mixins/mixins.dart';
+import 'package:forDev/ui/helpers/errors/errors.dart';
+import 'package:forDev/ui/pages/pages.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
-import 'package:ForDev/presentation/helpers/helpers.dart';
+import 'package:forDev/presentation/helpers/helpers.dart';
 
 class GetxSurveyResultPresenter extends GetxController with LoadingManager, SessionManager implements SurveyResultPresenter {
   final LoadSurveyResult loadSurveyResult;

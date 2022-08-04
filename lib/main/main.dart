@@ -1,6 +1,6 @@
 
-import 'package:ForDev/main/factories/pages/pages.dart';
-import 'package:ForDev/ui/components/components.dart';
+import 'package:forDev/main/factories/pages/pages.dart';
+import 'package:forDev/ui/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';

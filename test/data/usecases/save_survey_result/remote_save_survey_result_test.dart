@@ -1,9 +1,9 @@
 
 import 'dart:io';
-import 'package:ForDev/data/http/http.dart';
-import 'package:ForDev/data/usecases/save_survey_result/save_survey_result.dart';
-import 'package:ForDev/domain/entities/entities.dart';
-import 'package:ForDev/domain/helpers/helpers.dart';
+import 'package:forDev/data/http/http.dart';
+import 'package:forDev/data/usecases/save_survey_result/save_survey_result.dart';
+import 'package:forDev/domain/entities/entities.dart';
+import 'package:forDev/domain/helpers/helpers.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';

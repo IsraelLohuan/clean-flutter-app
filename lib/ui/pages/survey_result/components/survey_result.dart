@@ -1,4 +1,4 @@
-import 'package:ForDev/ui/pages/survey_result/survey_result.dart';
+import 'package:forDev/ui/pages/survey_result/survey_result.dart';
 import 'package:flutter/material.dart';
 import 'components.dart';
 

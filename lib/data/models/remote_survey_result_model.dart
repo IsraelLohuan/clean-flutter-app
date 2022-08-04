@@ -1,6 +1,6 @@
 
-import 'package:ForDev/data/http/http.dart';
-import 'package:ForDev/domain/entities/entities.dart';
+import 'package:forDev/data/http/http.dart';
+import 'package:forDev/domain/entities/entities.dart';
 import 'package:meta/meta.dart';
 import 'models.dart';
 

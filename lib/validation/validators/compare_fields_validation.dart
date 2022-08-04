@@ -1,5 +1,5 @@
-import 'package:ForDev/presentation/protocol/protocols.dart';
-import 'package:ForDev/validation/protocols/protocols.dart';
+import 'package:forDev/presentation/protocol/protocols.dart';
+import 'package:forDev/validation/protocols/protocols.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 

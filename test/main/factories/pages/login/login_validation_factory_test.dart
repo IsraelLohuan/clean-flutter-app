@@ -1,5 +1,5 @@
-import 'package:ForDev/main/factories/factories.dart';
-import 'package:ForDev/validation/validators/validators.dart';
+import 'package:forDev/main/factories/factories.dart';
+import 'package:forDev/validation/validators/validators.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

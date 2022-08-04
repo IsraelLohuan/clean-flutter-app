@@ -1,7 +1,7 @@
 
-import 'package:ForDev/main/factories/factories.dart';
-import 'package:ForDev/presentation/presenters/presenters.dart';
-import 'package:ForDev/ui/pages/pages.dart';
+import 'package:forDev/main/factories/factories.dart';
+import 'package:forDev/presentation/presenters/presenters.dart';
+import 'package:forDev/ui/pages/pages.dart';
 
 LoginPresenter makeGetXLoginPresenter() {
   return GetxLoginPresenter(

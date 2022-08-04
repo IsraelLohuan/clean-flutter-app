@@ -1,8 +1,8 @@
 
-import 'package:ForDev/data/usecases/usecases.dart';
-import 'package:ForDev/domain/usecases/usecases.dart';
-import 'package:ForDev/main/composites/composites.dart';
-import 'package:ForDev/main/factories/factories.dart';
+import 'package:forDev/data/usecases/usecases.dart';
+import 'package:forDev/domain/usecases/usecases.dart';
+import 'package:forDev/main/composites/composites.dart';
+import 'package:forDev/main/factories/factories.dart';
 
 LoadSurveys makeRemoteLoadSurveys() {
   return RemoteLoadSurveys(

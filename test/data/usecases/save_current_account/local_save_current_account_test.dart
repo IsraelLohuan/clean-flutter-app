@@ -1,7 +1,7 @@
-import 'package:ForDev/data/cache/cache.dart';
-import 'package:ForDev/data/usecases/save_current_account/save_current_account.dart';
-import 'package:ForDev/domain/entities/entities.dart';
-import 'package:ForDev/domain/helpers/domain_error.dart';
+import 'package:forDev/data/cache/cache.dart';
+import 'package:forDev/data/usecases/save_current_account/save_current_account.dart';
+import 'package:forDev/domain/entities/entities.dart';
+import 'package:forDev/domain/helpers/domain_error.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';

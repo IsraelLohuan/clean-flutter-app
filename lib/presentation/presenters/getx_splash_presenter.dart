@@ -1,6 +1,6 @@
-import 'package:ForDev/domain/usecases/usecases.dart';
-import 'package:ForDev/presentation/mixins/mixins.dart';
-import 'package:ForDev/ui/pages/splash/splash.dart';
+import 'package:forDev/domain/usecases/usecases.dart';
+import 'package:forDev/presentation/mixins/mixins.dart';
+import 'package:forDev/ui/pages/splash/splash.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
 

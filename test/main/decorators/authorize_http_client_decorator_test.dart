@@ -1,6 +1,6 @@
-import 'package:ForDev/data/cache/cache.dart';
-import 'package:ForDev/data/http/http.dart';
-import 'package:ForDev/main/decorators/authorize_http_client_decorator.dart';
+import 'package:forDev/data/cache/cache.dart';
+import 'package:forDev/data/http/http.dart';
+import 'package:forDev/main/decorators/authorize_http_client_decorator.dart';
 import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';

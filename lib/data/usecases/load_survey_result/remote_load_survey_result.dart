@@ -1,8 +1,8 @@
-import 'package:ForDev/data/http/http.dart';
-import 'package:ForDev/data/models/models.dart';
-import 'package:ForDev/domain/entities/entities.dart';
-import 'package:ForDev/domain/helpers/helpers.dart';
-import 'package:ForDev/domain/usecases/usecases.dart';
+import 'package:forDev/data/http/http.dart';
+import 'package:forDev/data/models/models.dart';
+import 'package:forDev/domain/entities/entities.dart';
+import 'package:forDev/domain/helpers/helpers.dart';
+import 'package:forDev/domain/usecases/usecases.dart';
 import 'package:meta/meta.dart';
 
 class RemoteLoadSurveyResult implements LoadSurveyResult {

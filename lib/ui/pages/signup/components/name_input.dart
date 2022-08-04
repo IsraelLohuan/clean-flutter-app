@@ -1,6 +1,6 @@
 
-import 'package:ForDev/ui/helpers/helpers.dart';
-import 'package:ForDev/ui/pages/signup/signup_presenter.dart';
+import 'package:forDev/ui/helpers/helpers.dart';
+import 'package:forDev/ui/pages/signup/signup_presenter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -1,4 +1,4 @@
-import 'package:ForDev/domain/entities/entities.dart';
+import 'package:forDev/domain/entities/entities.dart';
 import 'package:meta/meta.dart';
 
 abstract class SaveSurveyResult {

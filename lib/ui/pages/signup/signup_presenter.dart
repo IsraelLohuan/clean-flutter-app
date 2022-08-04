@@ -1,4 +1,4 @@
-import 'package:ForDev/ui/helpers/errors/errors.dart';
+import 'package:forDev/ui/helpers/errors/errors.dart';
 
 abstract class SignUpPresenter {
   Stream<UiError> get nameErrorStream;

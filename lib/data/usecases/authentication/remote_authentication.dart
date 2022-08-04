@@ -1,7 +1,7 @@
 
-import 'package:ForDev/data/models/models.dart';
-import 'package:ForDev/domain/entities/account_entity.dart';
-import 'package:ForDev/domain/helpers/domain_error.dart';
+import 'package:forDev/data/models/models.dart';
+import 'package:forDev/domain/entities/account_entity.dart';
+import 'package:forDev/domain/helpers/domain_error.dart';
 import 'package:meta/meta.dart';
 import '../../../domain/usecases/usecases.dart';
 import '../../http/http.dart';

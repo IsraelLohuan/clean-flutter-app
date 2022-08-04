@@ -1,5 +1,5 @@
 
-import 'package:ForDev/ui/pages/survey_result/components/components.dart';
+import 'package:forDev/ui/pages/survey_result/components/components.dart';
 import 'package:flutter/material.dart';
 
 import '../../pages.dart';

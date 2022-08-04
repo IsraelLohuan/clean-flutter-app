@@ -1,8 +1,8 @@
-import 'package:ForDev/ui/components/components.dart';
-import 'package:ForDev/ui/helpers/helpers.dart';
-import 'package:ForDev/ui/helpers/i18n/i18n.dart';
-import 'package:ForDev/ui/mixins/mixins.dart';
-import 'package:ForDev/ui/pages/signup/signup.dart';
+import 'package:forDev/ui/components/components.dart';
+import 'package:forDev/ui/helpers/helpers.dart';
+import 'package:forDev/ui/helpers/i18n/i18n.dart';
+import 'package:forDev/ui/mixins/mixins.dart';
+import 'package:forDev/ui/pages/signup/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'components/components.dart';

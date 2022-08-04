@@ -1,7 +1,7 @@
 
-import 'package:ForDev/domain/entities/entities.dart';
-import 'package:ForDev/domain/usecases/usecases.dart';
-import 'package:ForDev/presentation/presenters/presenters.dart';
+import 'package:forDev/domain/entities/entities.dart';
+import 'package:forDev/domain/usecases/usecases.dart';
+import 'package:forDev/presentation/presenters/presenters.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 import '../../mocks/mocks.dart';

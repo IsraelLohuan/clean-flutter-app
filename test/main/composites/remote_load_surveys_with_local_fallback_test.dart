@@ -1,9 +1,9 @@
 
-import 'package:ForDev/data/usecases/load_surveys/local_load_surveys.dart';
-import 'package:ForDev/data/usecases/usecases.dart';
-import 'package:ForDev/domain/entities/entities.dart';
-import 'package:ForDev/domain/helpers/domain_error.dart';
-import 'package:ForDev/main/composites/composites.dart';
+import 'package:forDev/data/usecases/load_surveys/local_load_surveys.dart';
+import 'package:forDev/data/usecases/usecases.dart';
+import 'package:forDev/domain/entities/entities.dart';
+import 'package:forDev/domain/helpers/domain_error.dart';
+import 'package:forDev/main/composites/composites.dart';
 import '../../mocks/mocks.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';

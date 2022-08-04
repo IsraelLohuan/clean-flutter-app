@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:ForDev/ui/helpers/errors/errors.dart';
-import 'package:ForDev/ui/pages/pages.dart';
+import 'package:forDev/ui/helpers/errors/errors.dart';
+import 'package:forDev/ui/pages/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';

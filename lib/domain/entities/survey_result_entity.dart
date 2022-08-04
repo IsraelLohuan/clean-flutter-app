@@ -1,5 +1,5 @@
 
-import 'package:ForDev/domain/entities/entities.dart';
+import 'package:forDev/domain/entities/entities.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 

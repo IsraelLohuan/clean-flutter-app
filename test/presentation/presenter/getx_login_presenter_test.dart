@@ -1,10 +1,10 @@
 
-import 'package:ForDev/domain/entities/account_entity.dart';
-import 'package:ForDev/domain/helpers/domain_error.dart';
-import 'package:ForDev/domain/usecases/usecases.dart';
-import 'package:ForDev/presentation/presenters/presenters.dart';
-import 'package:ForDev/presentation/protocol/protocols.dart';
-import 'package:ForDev/ui/helpers/errors/errors.dart';
+import 'package:forDev/domain/entities/account_entity.dart';
+import 'package:forDev/domain/helpers/domain_error.dart';
+import 'package:forDev/domain/usecases/usecases.dart';
+import 'package:forDev/presentation/presenters/presenters.dart';
+import 'package:forDev/presentation/protocol/protocols.dart';
+import 'package:forDev/ui/helpers/errors/errors.dart';
 import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';

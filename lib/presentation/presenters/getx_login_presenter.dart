@@ -1,13 +1,13 @@
 import 'dart:async';
-import 'package:ForDev/domain/helpers/domain_error.dart';
-import 'package:ForDev/domain/usecases/usecases.dart';
-import 'package:ForDev/presentation/mixins/loading_manager.dart';
-import 'package:ForDev/presentation/mixins/mixins.dart';
-import 'package:ForDev/ui/helpers/errors/errors.dart';
-import 'package:ForDev/ui/pages/pages.dart';
+import 'package:forDev/domain/helpers/domain_error.dart';
+import 'package:forDev/domain/usecases/usecases.dart';
+import 'package:forDev/presentation/mixins/loading_manager.dart';
+import 'package:forDev/presentation/mixins/mixins.dart';
+import 'package:forDev/ui/helpers/errors/errors.dart';
+import 'package:forDev/ui/pages/pages.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
-import 'package:ForDev/presentation/protocol/protocols.dart';
+import 'package:forDev/presentation/protocol/protocols.dart';
 
 class GetxLoginPresenter extends GetxController with LoadingManager, UiErrorManager, NavigationManager, FormManager implements LoginPresenter {
 

@@ -1,4 +1,4 @@
-import 'package:ForDev/ui/components/components.dart';
+import 'package:forDev/ui/components/components.dart';
 import 'package:flutter/cupertino.dart';
 
 mixin LoadingManager {

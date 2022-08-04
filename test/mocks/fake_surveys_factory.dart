@@ -1,5 +1,5 @@
-import 'package:ForDev/domain/entities/entities.dart';
-import 'package:ForDev/ui/pages/pages.dart';
+import 'package:forDev/domain/entities/entities.dart';
+import 'package:forDev/ui/pages/pages.dart';
 import 'package:faker/faker.dart';
 
 class FakeSurveysFactory {

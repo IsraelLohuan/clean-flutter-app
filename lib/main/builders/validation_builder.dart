@@ -1,8 +1,8 @@
 
-import 'package:ForDev/validation/protocols/protocols.dart';
-import 'package:ForDev/validation/validators/email_validation.dart';
-import 'package:ForDev/validation/validators/required_field_validation.dart';
-import 'package:ForDev/validation/validators/validators.dart';
+import 'package:forDev/validation/protocols/protocols.dart';
+import 'package:forDev/validation/validators/email_validation.dart';
+import 'package:forDev/validation/validators/required_field_validation.dart';
+import 'package:forDev/validation/validators/validators.dart';
 
 class ValidationBuilder {
   ValidationBuilder._();

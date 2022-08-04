@@ -1,4 +1,4 @@
-import 'package:ForDev/domain/usecases/usecases.dart';
+import 'package:forDev/domain/usecases/usecases.dart';
 import 'package:faker/faker.dart';
 
 class FakeParamsFactory {

@@ -1,7 +1,7 @@
 
-import 'package:ForDev/main/factories/factories.dart';
-import 'package:ForDev/presentation/presenters/presenters.dart';
-import 'package:ForDev/ui/pages/splash/splash.dart';
+import 'package:forDev/main/factories/factories.dart';
+import 'package:forDev/presentation/presenters/presenters.dart';
+import 'package:forDev/ui/pages/splash/splash.dart';
 
 SplashPresenter makeGetxSplashPresenter() {
   return GetxSplashPresenter(

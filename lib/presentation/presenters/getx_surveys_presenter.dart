@@ -1,9 +1,9 @@
-import 'package:ForDev/domain/helpers/helpers.dart';
-import 'package:ForDev/domain/usecases/usecases.dart';
-import 'package:ForDev/presentation/mixins/mixins.dart';
-import 'package:ForDev/ui/helpers/errors/errors.dart';
-import 'package:ForDev/ui/pages/surveys/survey_viewmodel.dart';
-import 'package:ForDev/ui/pages/surveys/surveys.dart';
+import 'package:forDev/domain/helpers/helpers.dart';
+import 'package:forDev/domain/usecases/usecases.dart';
+import 'package:forDev/presentation/mixins/mixins.dart';
+import 'package:forDev/ui/helpers/errors/errors.dart';
+import 'package:forDev/ui/pages/surveys/survey_viewmodel.dart';
+import 'package:forDev/ui/pages/surveys/surveys.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';

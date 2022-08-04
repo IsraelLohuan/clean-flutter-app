@@ -1,4 +1,4 @@
-import 'package:ForDev/presentation/protocol/protocols.dart';
+import 'package:forDev/presentation/protocol/protocols.dart';
 
 abstract class FieldValidation {
   String get field;

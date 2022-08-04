@@ -1,5 +1,5 @@
 
-import 'package:ForDev/domain/entities/entities.dart';
+import 'package:forDev/domain/entities/entities.dart';
 import 'package:faker/faker.dart';
 
 class FakeAccountFactory {

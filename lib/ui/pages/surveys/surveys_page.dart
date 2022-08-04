@@ -1,11 +1,11 @@
-import 'package:ForDev/ui/components/components.dart';
-import 'package:ForDev/ui/helpers/helpers.dart';
-import 'package:ForDev/ui/pages/surveys/components/components.dart';
-import 'package:ForDev/ui/pages/surveys/surveys.dart';
+import 'package:forDev/ui/components/components.dart';
+import 'package:forDev/ui/helpers/helpers.dart';
+import 'package:forDev/ui/pages/surveys/components/components.dart';
+import 'package:forDev/ui/pages/surveys/surveys.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:ForDev/ui/mixins/mixins.dart';
+import 'package:forDev/ui/mixins/mixins.dart';
 
 class SurveysPage extends StatefulWidget {
   final SurveysPresenter presenter;

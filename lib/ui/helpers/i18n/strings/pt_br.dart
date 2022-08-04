@@ -1,5 +1,5 @@
 
-import 'package:ForDev/ui/helpers/i18n/strings/strings.dart';
+import 'package:forDev/ui/helpers/i18n/strings/strings.dart';
 
 class PtBr implements Translations {
   String get msgEmailInUse => 'O email já está em uso.';

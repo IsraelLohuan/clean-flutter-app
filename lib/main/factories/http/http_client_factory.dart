@@ -1,5 +1,5 @@
-import 'package:ForDev/data/http/http.dart';
-import 'package:ForDev/infra/http/http.dart';
+import 'package:forDev/data/http/http.dart';
+import 'package:forDev/infra/http/http.dart';
 import 'package:http/http.dart';
 
 HttpClient makeHttpAdapter() {

@@ -1,6 +1,6 @@
-import 'package:ForDev/data/usecases/authentication/remote_authentication.dart';
-import 'package:ForDev/domain/usecases/authentication.dart';
-import 'package:ForDev/main/factories/http/http.dart';
+import 'package:forDev/data/usecases/authentication/remote_authentication.dart';
+import 'package:forDev/domain/usecases/authentication.dart';
+import 'package:forDev/main/factories/http/http.dart';
 
 Authentication makeRemoteAuthentication() {
   return RemoteAuthentication(

@@ -1,5 +1,5 @@
-import 'package:ForDev/presentation/presenters/presenters.dart';
-import 'package:ForDev/ui/pages/surveys/surveys.dart';
+import 'package:forDev/presentation/presenters/presenters.dart';
+import 'package:forDev/ui/pages/surveys/surveys.dart';
 import '../../factories.dart';
 
 SurveysPresenter makeGetxSurveysPresenter() => GetxSurveysPresenter(loadSurveys: makeRemoteLoadSurveysWithLocalFallback());

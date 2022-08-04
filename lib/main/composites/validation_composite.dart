@@ -1,6 +1,6 @@
-import 'package:ForDev/validation/protocols/protocols.dart';
+import 'package:forDev/validation/protocols/protocols.dart';
 import 'package:meta/meta.dart';
-import 'package:ForDev/presentation/protocol/protocols.dart';
+import 'package:forDev/presentation/protocol/protocols.dart';
 
 class ValidationComposite implements Validation {
   final List<FieldValidation> validations;

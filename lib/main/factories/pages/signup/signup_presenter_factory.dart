@@ -1,8 +1,8 @@
 
-import 'package:ForDev/main/factories/pages/pages.dart';
-import 'package:ForDev/main/factories/usecases/usecases.dart';
-import 'package:ForDev/presentation/presenters/presenters.dart';
-import 'package:ForDev/ui/pages/signup/signup.dart';
+import 'package:forDev/main/factories/pages/pages.dart';
+import 'package:forDev/main/factories/usecases/usecases.dart';
+import 'package:forDev/presentation/presenters/presenters.dart';
+import 'package:forDev/ui/pages/signup/signup.dart';
 
 SignUpPresenter makeGetXSignUpPresenter() {
   return GetxSignUpPresenter(

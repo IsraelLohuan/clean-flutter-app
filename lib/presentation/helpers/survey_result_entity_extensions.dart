@@ -1,6 +1,6 @@
-import 'package:ForDev/domain/entities/entities.dart';
-import 'package:ForDev/ui/pages/survey_result/survey_answer_viewmodel.dart';
-import 'package:ForDev/ui/pages/survey_result/survey_result_viewmodel.dart';
+import 'package:forDev/domain/entities/entities.dart';
+import 'package:forDev/ui/pages/survey_result/survey_answer_viewmodel.dart';
+import 'package:forDev/ui/pages/survey_result/survey_result_viewmodel.dart';
 
 extension SurveyResultEntityExtensions on SurveyResultEntity {
   SurveyResultViewModel toViewModel() => SurveyResultViewModel(

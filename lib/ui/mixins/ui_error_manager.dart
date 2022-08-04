@@ -1,5 +1,5 @@
-import 'package:ForDev/ui/components/components.dart';
-import 'package:ForDev/ui/helpers/errors/errors.dart';
+import 'package:forDev/ui/components/components.dart';
+import 'package:forDev/ui/helpers/errors/errors.dart';
 import 'package:flutter/cupertino.dart';
 
 mixin UiErrorManager {

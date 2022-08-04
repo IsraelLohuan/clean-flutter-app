@@ -1,8 +1,8 @@
 
-import 'package:ForDev/data/usecases/load_survey_result/load_survey_result.dart';
-import 'package:ForDev/domain/entities/entities.dart';
-import 'package:ForDev/domain/helpers/domain_error.dart';
-import 'package:ForDev/main/composites/composites.dart';
+import 'package:forDev/data/usecases/load_survey_result/load_survey_result.dart';
+import 'package:forDev/domain/entities/entities.dart';
+import 'package:forDev/domain/helpers/domain_error.dart';
+import 'package:forDev/main/composites/composites.dart';
 import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';

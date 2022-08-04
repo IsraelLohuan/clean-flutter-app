@@ -1,4 +1,4 @@
-import 'package:ForDev/ui/pages/pages.dart';
+import 'package:forDev/ui/pages/pages.dart';
 
 abstract class SurveysPresenter {
   Stream<bool> get isLoadingStream;
