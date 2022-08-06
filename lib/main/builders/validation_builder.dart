@@ -5,16 +5,15 @@ import 'package:forDev/validation/validators/required_field_validation.dart';
 import 'package:forDev/validation/validators/validators.dart';
 
 class ValidationBuilder {
-  ValidationBuilder._();
-
-  static ValidationBuilder _instance;
+  static ValidationBuilder? _instance;
   String fieldname;
   List<FieldValidation> validations = [];
 
+  ValidationBuilder._(this.fieldname);
+
   static ValidationBuilder field(String fieldName) {
-    _instance = ValidationBuilder._();
-    _instance.fieldname = fieldName;
-    return _instance;
+    _instance = ValidationBuilder._(fieldName);
+    return _instance!;
   }
 
   ValidationBuilder required() {

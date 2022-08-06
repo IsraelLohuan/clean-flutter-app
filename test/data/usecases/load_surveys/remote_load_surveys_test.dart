@@ -5,7 +5,7 @@ import 'package:forDev/domain/entities/entities.dart';
 import 'package:forDev/domain/helpers/helpers.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../../mocks/mocks.dart';
 
@@ -13,12 +13,12 @@ import '../../../mocks/mocks.dart';
 class HttpClientSpy extends Mock implements HttpClient {}
 
 void main() {
-  RemoteLoadSurveys sut;
-  String url;
-  HttpClientSpy httpClient;
-  List<Map> list;
+  late RemoteLoadSurveys sut;
+  late String url;
+  late HttpClientSpy httpClient;
+  late List<Map> list;
 
-  PostExpectation mockRequest() => when(httpClient.request(url: anyNamed('url'), method: anyNamed('method')));
+  When mockRequest() => when(() => httpClient.request(url: any(named: 'url'), method: any(named: 'method')));
 
   void mockHttpData(List<Map> data) {
     list = data;
@@ -38,7 +38,7 @@ void main() {
 
   test('Should call HttpClient with correct values', () async {
     await sut.load();
-    verify(httpClient.request(url: url, method: 'get'));
+    verify(() => httpClient.request(url: url, method: 'get'));
   });
 
   test('Should return surveys on 200', () async {

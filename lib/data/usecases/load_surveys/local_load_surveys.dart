@@ -3,12 +3,11 @@ import 'package:forDev/data/models/models.dart';
 import 'package:forDev/domain/entities/entities.dart';
 import 'package:forDev/domain/helpers/helpers.dart';
 import 'package:forDev/domain/usecases/usecases.dart';
-import 'package:meta/meta.dart';
 
 class LocalLoadSurveys implements LoadSurveys {
   final CacheStorage cacheStorage;
 
-  LocalLoadSurveys({@required this.cacheStorage});
+  LocalLoadSurveys({required this.cacheStorage});
 
   Future<List<SurveyEntity>> load() async {
     try {

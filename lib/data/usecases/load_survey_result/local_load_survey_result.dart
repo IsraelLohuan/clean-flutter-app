@@ -3,14 +3,13 @@ import 'package:forDev/data/models/models.dart';
 import 'package:forDev/domain/entities/entities.dart';
 import 'package:forDev/domain/helpers/helpers.dart';
 import 'package:forDev/domain/usecases/usecases.dart';
-import 'package:meta/meta.dart';
 
 class LocalLoadSurveyResult implements LoadSurveyResult {
   final CacheStorage cacheStorage;
 
-  LocalLoadSurveyResult({@required this.cacheStorage});
+  LocalLoadSurveyResult({required this.cacheStorage});
 
-  Future<SurveyResultEntity> loadBySurvey({String surveyId}) async {
+  Future<SurveyResultEntity> loadBySurvey({required String surveyId}) async {
     try {
       final data = await cacheStorage.fetch('survey_result/$surveyId');
       if(data?.isEmpty != false) {

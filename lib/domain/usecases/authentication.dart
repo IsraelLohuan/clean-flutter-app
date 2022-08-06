@@ -1,6 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
-
 import '../entities/entities.dart';
 
 abstract class Authentication {
@@ -12,8 +10,8 @@ class AuthenticationParams extends Equatable{
   final String secret;
 
   AuthenticationParams({
-    @required this.email,
-    @required this.secret
+    required this.email,
+    required this.secret
   });
 
   @override

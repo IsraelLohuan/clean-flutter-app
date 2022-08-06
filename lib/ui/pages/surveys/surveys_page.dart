@@ -18,7 +18,7 @@ class SurveysPage extends StatefulWidget {
 
 class _SurveysPageState extends State<SurveysPage> with LoadingManager, NavigationManager, SessionManager, RouteAware {
 
-  RouteObserver routeObserver;
+  late RouteObserver routeObserver;
 
   @override 
   void didPopNext() {
@@ -34,7 +34,7 @@ class _SurveysPageState extends State<SurveysPage> with LoadingManager, Navigati
   @override
   Widget build(BuildContext context) {
     routeObserver = Get.find<RouteObserver>();
-    routeObserver.subscribe(this, ModalRoute.of(context));
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute);
 
     return Scaffold(
       appBar: AppBar(
@@ -53,7 +53,7 @@ class _SurveysPageState extends State<SurveysPage> with LoadingManager, Navigati
             builder: (context, snapshot) {
               if(snapshot.hasError) {
                 return ReloadScreen(
-                  error: snapshot.error, 
+                  error: snapshot.error.toString(), 
                   reload: widget.presenter.loadData,
                 );
               }
@@ -61,7 +61,7 @@ class _SurveysPageState extends State<SurveysPage> with LoadingManager, Navigati
               if(snapshot.hasData) {
                 return Provider(
                   create: (_) => widget.presenter,
-                  child: SurveyItems(snapshot.data)
+                  child: SurveyItems(snapshot.data!)
                 );
               }
 

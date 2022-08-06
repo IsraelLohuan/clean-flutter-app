@@ -5,14 +5,14 @@ import 'package:forDev/domain/usecases/usecases.dart';
 import 'package:forDev/main/composites/composites.dart';
 import 'package:forDev/main/factories/factories.dart';
 
-LoadSurveyResult makeRemoteLoadSurveyResult(String surveyId) {
+RemoteLoadSurveyResult makeRemoteLoadSurveyResult(String surveyId) {
   return RemoteLoadSurveyResult(
     httpClient: makeAuthorizeHttpClientDecorator(), 
     url: makeApiUrl('surveys/${surveyId}/results')
   );
 }
 
-LoadSurveyResult makeLocalLoadSurveyResult(String surveyId) {
+LocalLoadSurveyResult makeLocalLoadSurveyResult(String surveyId) {
   return LocalLoadSurveyResult(cacheStorage: makeLocalStorageAdapter());
 }
 

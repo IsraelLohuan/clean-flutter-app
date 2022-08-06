@@ -1,7 +1,6 @@
 
 import 'package:forDev/data/cache/cache.dart';
 import 'package:forDev/data/http/http.dart';
-import 'package:meta/meta.dart';
 
 class AuthorizeHttpClientDecorator implements HttpClient {
   final FetchSecureCacheStorage fetchCacheStorage;
@@ -9,17 +8,17 @@ class AuthorizeHttpClientDecorator implements HttpClient {
   final HttpClient decoratee;
 
   AuthorizeHttpClientDecorator({
-    @required this.fetchCacheStorage,
-    @required this.deleteCacheStorage,
-    @required this.decoratee
+    required this.fetchCacheStorage,
+    required this.deleteCacheStorage,
+    required this.decoratee
   });
 
   @override
   Future<dynamic> request({
-    @required String url,
-    @required String method,
-    Map body,
-    Map headers
+    required String url,
+    required String method,
+    Map? body,
+    Map? headers
   }) async {
     try {
       final token = await fetchCacheStorage.fetch('token');

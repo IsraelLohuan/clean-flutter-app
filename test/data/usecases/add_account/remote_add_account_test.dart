@@ -2,7 +2,7 @@
 import 'package:forDev/data/http/http.dart';
 import 'package:forDev/domain/helpers/helpers.dart';
 import 'package:faker/faker.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import 'package:forDev/domain/usecases/usecases.dart';
@@ -13,16 +13,15 @@ class HttpClientSpy extends Mock implements HttpClient {}
 
 void main() {
 
-  RemoteAddAccount sut;
-  HttpClientSpy httpClient;
-  String url;
-  AddAccountParams params;
-  Map apiResult;
+  late RemoteAddAccount sut;
+  late HttpClientSpy httpClient;
+  late String url;
+  late AddAccountParams params;
+  late Map apiResult;
 
-  PostExpectation mockRequest() =>
-    when(httpClient.request(url: anyNamed('url'), method: anyNamed('method'), body: anyNamed('body')));
+  When mockRequest() =>
+    when(() => httpClient.request(url: any(named: 'url'), method: any(named: 'method'), body: any(named: 'body')));
 
-  
   void mockHttpData(Map data) {
     apiResult = data;
     mockRequest().thenAnswer((_) async => data);
@@ -41,7 +40,7 @@ void main() {
   test('Should call HttpClient with correct values', () async {
     await sut.add(params);
 
-    verify(httpClient.request(
+    verify(() => httpClient.request(
       url: url,
       method: 'post',
       body: {

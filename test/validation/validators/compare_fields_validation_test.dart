@@ -3,7 +3,7 @@ import 'package:forDev/validation/validators/validators.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  CompareFieldsValidation sut;
+  late CompareFieldsValidation sut;
 
   setUp(() {
     sut = CompareFieldsValidation(field: 'any_field', fieldToCompare: 'any_value');  

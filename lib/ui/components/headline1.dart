@@ -4,7 +4,7 @@ class HeadLine1 extends StatelessWidget {
   final String text;
 
   const HeadLine1({
-    @required this.text
+    required this.text
   });
 
   @override

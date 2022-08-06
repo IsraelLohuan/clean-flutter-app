@@ -6,7 +6,6 @@ import 'package:forDev/presentation/mixins/mixins.dart';
 import 'package:forDev/ui/helpers/errors/errors.dart';
 import 'package:forDev/ui/pages/pages.dart';
 import 'package:get/get.dart';
-import 'package:meta/meta.dart';
 import 'package:forDev/presentation/helpers/helpers.dart';
 
 class GetxSurveyResultPresenter extends GetxController with LoadingManager, SessionManager implements SurveyResultPresenter {
@@ -14,21 +13,21 @@ class GetxSurveyResultPresenter extends GetxController with LoadingManager, Sess
   final SaveSurveyResult saveSurveyResult;
 
   final String surveyId;
-  final _surveyResult = Rx<SurveyResultViewModel>();
+  final _surveyResult = Rx<SurveyResultViewModel?>(null);
   
-  Stream<SurveyResultViewModel> get surveyResultStream => _surveyResult.stream;
+  Stream<SurveyResultViewModel?> get surveyResultStream => _surveyResult.stream;
 
   GetxSurveyResultPresenter({
-    @required this.loadSurveyResult, 
-    @required this.saveSurveyResult,
-    @required this.surveyId,
+    required this.loadSurveyResult, 
+    required this.saveSurveyResult,
+    required this.surveyId,
   });
 
   Future<void> loadData() async {
     showResultOnAction(() => loadSurveyResult.loadBySurvey(surveyId: surveyId));
   }
 
-  Future<void> save({@required String answer}) async {
+  Future<void> save({required String answer}) async {
     showResultOnAction(() => saveSurveyResult.save(answer: answer));
   }
 

@@ -4,21 +4,21 @@ import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forDev/ui/pages/pages.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import '../helpers/helpers.dart';
 
 class SignUpPresenterSpy extends Mock implements SignUpPresenter {}
 
 void main() {
-  SignUpPresenter presenter;
-  StreamController<UiError> nameErrorController;
-  StreamController<UiError> emailErrorController;
-  StreamController<UiError> passwordErrorController;
-  StreamController<UiError> passwordConfirmationErrorController;
-  StreamController<UiError> mainErrorController;
-  StreamController<bool> isFormValidController;
-  StreamController<bool> isLoadingController;
-  StreamController<String> navigateToController;
+  late SignUpPresenter presenter;
+  late StreamController<UiError> nameErrorController;
+  late StreamController<UiError> emailErrorController;
+  late StreamController<UiError> passwordErrorController;
+  late StreamController<UiError> passwordConfirmationErrorController;
+  late StreamController<UiError> mainErrorController;
+  late StreamController<bool> isFormValidController;
+  late StreamController<bool> isLoadingController;
+  late StreamController<String> navigateToController;
 
   void initStreams() {
     nameErrorController = StreamController<UiError>();
@@ -32,14 +32,14 @@ void main() {
   }
 
   void mockStreams() {
-    when(presenter.nameErrorStream).thenAnswer((_) => nameErrorController.stream);
-    when(presenter.emailErrorStream).thenAnswer((_) => emailErrorController.stream);
-    when(presenter.passwordErrorStream).thenAnswer((_) => passwordErrorController.stream);
-    when(presenter.mainErrorStream).thenAnswer((_) => mainErrorController.stream);
-    when(presenter.passwordConfirmationErrorStream).thenAnswer((_) => passwordConfirmationErrorController.stream);
-    when(presenter.isFormValidStream).thenAnswer((_) => isFormValidController.stream);
-    when(presenter.isLoadingStream).thenAnswer((_) => isLoadingController.stream);
-    when(presenter.navigateToStream).thenAnswer((_) => navigateToController.stream);
+    when(() => presenter.nameErrorStream).thenAnswer((_) => nameErrorController.stream);
+    when(() => presenter.emailErrorStream).thenAnswer((_) => emailErrorController.stream);
+    when(() => presenter.passwordErrorStream).thenAnswer((_) => passwordErrorController.stream);
+    when(() => presenter.mainErrorStream).thenAnswer((_) => mainErrorController.stream);
+    when(() => presenter.passwordConfirmationErrorStream).thenAnswer((_) => passwordConfirmationErrorController.stream);
+    when(() => presenter.isFormValidStream).thenAnswer((_) => isFormValidController.stream);
+    when(() => presenter.isLoadingStream).thenAnswer((_) => isLoadingController.stream);
+    when(() => presenter.navigateToStream).thenAnswer((_) => navigateToController.stream);
   }
 
   void closeStreams() {
@@ -69,19 +69,19 @@ void main() {
 
     final name = faker.person.name();
     await tester.enterText(find.bySemanticsLabel('Nome'), name);
-    verify(presenter.validateName(name));
+    verify(() => presenter.validateName(name));
 
     final email = faker.internet.email();
     await tester.enterText(find.bySemanticsLabel('Email'), email);
-    verify(presenter.validateEmail(email));
+    verify(() => presenter.validateEmail(email));
 
     final password = faker.internet.password();
     await tester.enterText(find.bySemanticsLabel('Senha'), password);
-    verify(presenter.validatePassword(password));
+    verify(() => presenter.validatePassword(password));
 
     final passwordConfirmation = faker.internet.password();
     await tester.enterText(find.bySemanticsLabel('Confirmar senha'), passwordConfirmation);
-    verify(presenter.validatePasswordConfirmation(passwordConfirmation));
+    verify(() => presenter.validatePasswordConfirmation(passwordConfirmation));
   });
 
   testWidgets('Should present email error', (WidgetTester tester) async {
@@ -166,7 +166,7 @@ void main() {
     isFormValidController.add(true);
     await tester.pump();
 
-    final button = tester.widget<RaisedButton>(find.byType(RaisedButton));
+    final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
     expect(button.onPressed, isNotNull);
   });
 
@@ -176,14 +176,14 @@ void main() {
     isFormValidController.add(false);
     await tester.pump();
 
-    final button = tester.widget<RaisedButton>(find.byType(RaisedButton));
+    final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
     expect(button.onPressed, null);
   });
 
   testWidgets('Should call signUp on form submit', (WidgetTester tester) async {
     await loadPage(tester);
 
-    final button = find.byType(RaisedButton);
+    final button = find.byType(ElevatedButton);
 
     isFormValidController.add(true);
     await tester.pump();
@@ -191,7 +191,7 @@ void main() {
     await tester.tap(button);
     await tester.pump();
 
-    verify(presenter.signUp()).called(1);
+    verify(() => presenter.signUp()).called(1);
   });
 
   testWidgets('Should handle loading correctly', (WidgetTester tester) async {
@@ -262,6 +262,6 @@ void main() {
     await tester.tap(button);
     await tester.pump();
 
-    verify(presenter.goToSignUp()).called(1);
+    verify(() => presenter.goToSignUp()).called(1);
   });
 }

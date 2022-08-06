@@ -6,7 +6,6 @@ import 'package:forDev/presentation/mixins/mixins.dart';
 import 'package:forDev/ui/helpers/errors/errors.dart';
 import 'package:forDev/ui/pages/pages.dart';
 import 'package:get/get.dart';
-import 'package:meta/meta.dart';
 import 'package:forDev/presentation/protocol/protocols.dart';
 
 class GetxLoginPresenter extends GetxController with LoadingManager, UiErrorManager, NavigationManager, FormManager implements LoginPresenter {
@@ -15,19 +14,19 @@ class GetxLoginPresenter extends GetxController with LoadingManager, UiErrorMana
   final Authentication authentication;
   final SaveCurrentAccount saveCurrentAccount;
 
-  String _email;
-  String _password;
+  String? _email;
+  String? _password;
 
-  var _emailError = Rx<UiError>();
-  var _passwordError = Rx<UiError>();
+  var _emailError = Rx<UiError?>(null);
+  var _passwordError = Rx<UiError?>(null);
 
-  Stream<UiError> get emailErrorStream => _emailError.stream;
-  Stream<UiError> get passwordErrorStream => _passwordError.stream;
+  Stream<UiError?> get emailErrorStream => _emailError.stream;
+  Stream<UiError?> get passwordErrorStream => _passwordError.stream;
  
   GetxLoginPresenter({
-    @required this.validation, 
-    @required this.authentication, 
-    @required this.saveCurrentAccount
+    required this.validation, 
+    required this.authentication, 
+    required this.saveCurrentAccount
   });
 
   void validateEmail(String email) {
@@ -42,7 +41,7 @@ class GetxLoginPresenter extends GetxController with LoadingManager, UiErrorMana
     _validateForm();
   }
 
-  UiError _validateField({String field}) {
+  UiError? _validateField({required String field}) {
     final formData = {
       'email': _email,
       'password': _password
@@ -66,7 +65,7 @@ class GetxLoginPresenter extends GetxController with LoadingManager, UiErrorMana
     try {
       mainError = null;
       isLoading = true;
-      final account = await authentication.auth(AuthenticationParams(email: _email, secret: _password));
+      final account = await authentication.auth(AuthenticationParams(email: _email!, secret: _password!));
       await saveCurrentAccount.save(account);
       navigateTo = '/surveys';
     } on DomainError catch(error) {

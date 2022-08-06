@@ -4,7 +4,7 @@ import 'package:forDev/ui/helpers/errors/errors.dart';
 import 'package:forDev/ui/pages/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../helpers/helpers.dart';
 import '../../mocks/mocks.dart';
@@ -12,11 +12,11 @@ import '../../mocks/mocks.dart';
 class SurveysPresenterSpy extends Mock implements SurveysPresenter {}
 
 void main() {
-  SurveysPresenterSpy presenter;
-  StreamController<bool> isLoadingController;
-  StreamController<List<SurveyViewModel>> loadSurveysController;
-  StreamController<String> navigateToController;
-  StreamController<bool> isSessionExpiredController;
+  late SurveysPresenterSpy presenter;
+  late StreamController<bool> isLoadingController;
+  late StreamController<List<SurveyViewModel>> loadSurveysController;
+  late StreamController<String> navigateToController;
+  late StreamController<bool> isSessionExpiredController;
 
   void initStreams() {
     isLoadingController = StreamController<bool>();
@@ -26,10 +26,10 @@ void main() {
   }
 
   void mockStreams() {
-    when(presenter.isLoadingStream).thenAnswer((_) => isLoadingController.stream);
-    when(presenter.surveysStream).thenAnswer((_) => loadSurveysController.stream);
-    when(presenter.navigateToStream).thenAnswer((_) => navigateToController.stream);
-    when(presenter.isSessionExpiredStream).thenAnswer((_) => isSessionExpiredController.stream);
+    when(() => presenter.isLoadingStream).thenAnswer((_) => isLoadingController.stream);
+    when(() => presenter.surveysStream).thenAnswer((_) => loadSurveysController.stream);
+    when(() => presenter.navigateToStream).thenAnswer((_) => navigateToController.stream);
+    when(() => presenter.isSessionExpiredStream).thenAnswer((_) => isSessionExpiredController.stream);
   }
 
   void closeStreams() {
@@ -53,7 +53,7 @@ void main() {
   testWidgets('Should call LoadSurveys on page load', (WidgetTester tester) async {
     await loadPage(tester);
 
-    verify(presenter.loadData()).called(1);
+    verify(() => presenter.loadData()).called(1);
   });
 
   testWidgets('Should call LoadSurveys on reload', (WidgetTester tester) async {
@@ -63,7 +63,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.pageBack();
 
-    verify(presenter.loadData()).called(2);
+    verify(() => presenter.loadData()).called(2);
   });
 
   testWidgets('Should handle loading correctly', (WidgetTester tester) async {
@@ -130,7 +130,7 @@ void main() {
     await tester.pump();
     await tester.tap(find.text('Recarregar'));
 
-    verify(presenter.loadData()).called(2);
+    verify(() => presenter.loadData()).called(2);
   });
 
   testWidgets('Should call gotoSurveyResult on survey click', (WidgetTester tester) async {
@@ -142,7 +142,7 @@ void main() {
     await tester.tap(find.text('Question 1'));
     await tester.pump();
 
-    verify(presenter.goToSurveyResult('1')).called(1);
+    verify(() => presenter.goToSurveyResult('1')).called(1);
   });
 
   testWidgets('Should change page', (WidgetTester tester) async {

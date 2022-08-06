@@ -2,7 +2,6 @@
 import 'package:forDev/data/models/models.dart';
 import 'package:forDev/domain/entities/account_entity.dart';
 import 'package:forDev/domain/helpers/domain_error.dart';
-import 'package:meta/meta.dart';
 import '../../../domain/usecases/usecases.dart';
 import '../../http/http.dart';
 
@@ -11,8 +10,8 @@ class RemoteAuthentication implements Authentication {
   final String url;
 
   RemoteAuthentication({
-    @required this.httpClient,
-    @required this.url
+    required this.httpClient,
+    required this.url
   });
 
   @override
@@ -34,8 +33,8 @@ class RemoteAuthenticationParams {
   final String password;
 
   RemoteAuthenticationParams({
-    @required this.email,
-    @required this.password
+    required this.email,
+    required this.password
   });
 
   factory RemoteAuthenticationParams.fromDomain(AuthenticationParams params) {

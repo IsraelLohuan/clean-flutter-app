@@ -1,26 +1,25 @@
 
-import 'dart:io';
 import 'package:forDev/data/http/http.dart';
 import 'package:forDev/data/usecases/load_survey_result/load_survey_result.dart';
 import 'package:forDev/domain/entities/entities.dart';
 import 'package:forDev/domain/helpers/helpers.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import '../../../mocks/mocks.dart';
 
 
 class HttpClientSpy extends Mock implements HttpClient {}
 
 void main() {
-  RemoteLoadSurveyResult sut;
-  String url;
-  HttpClientSpy httpClient;
-  Map surveyResult;
+  late RemoteLoadSurveyResult sut;
+  late String url;
+  late HttpClientSpy httpClient;
+  late Map surveyResult;
 
  
 
-  PostExpectation mockRequest() => when(httpClient.request(url: anyNamed('url'), method: anyNamed('method')));
+  When mockRequest() => when(() => httpClient.request(url: any(named: 'url'), method: any(named: 'method')));
 
   void mockHttpData(Map data) {
     surveyResult = data;
@@ -40,7 +39,7 @@ void main() {
 
   test('Should call HttpClient with correct values', () async {
     await sut.loadBySurvey();
-    verify(httpClient.request(url: url, method: 'get'));
+    verify(() => httpClient.request(url: url, method: 'get'));
   });
 
   test('Should return surveyResult on 200', () async {

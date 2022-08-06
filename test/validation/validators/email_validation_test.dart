@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
 
-  EmailValidation sut;
+  late EmailValidation sut;
 
   setUp(() {
     sut = EmailValidation('any_field');

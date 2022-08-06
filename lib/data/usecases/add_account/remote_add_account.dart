@@ -2,7 +2,6 @@
 import 'package:forDev/data/models/models.dart';
 import 'package:forDev/domain/entities/entities.dart';
 import 'package:forDev/domain/helpers/domain_error.dart';
-import 'package:meta/meta.dart';
 import '../../../domain/usecases/usecases.dart';
 import '../../http/http.dart';
 
@@ -11,8 +10,8 @@ class RemoteAddAccount implements AddAccount {
   final String url;
 
   RemoteAddAccount({
-    @required this.httpClient,
-    @required this.url
+    required this.httpClient,
+    required this.url
   });
 
   @override
@@ -36,10 +35,10 @@ class RemoteAddAccountParams {
   final String passwordConfirmation;
 
   RemoteAddAccountParams({
-    @required this.name, 
-    @required this.email,
-    @required this.password,
-    @required this.passwordConfirmation
+    required this.name, 
+    required this.email,
+    required this.password,
+    required this.passwordConfirmation
   });
 
   factory RemoteAddAccountParams.fromDomain(AddAccountParams params) {

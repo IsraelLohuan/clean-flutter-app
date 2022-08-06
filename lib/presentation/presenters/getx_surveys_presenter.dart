@@ -6,16 +6,15 @@ import 'package:forDev/ui/pages/surveys/survey_viewmodel.dart';
 import 'package:forDev/ui/pages/surveys/surveys.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:meta/meta.dart';
 
 class GetxSurveysPresenter extends GetxController with SessionManager, LoadingManager, NavigationManager implements SurveysPresenter {
   final LoadSurveys loadSurveys;
 
-  final _surveys = Rx<List<SurveyViewModel>>();
+  final _surveys = Rx<List<SurveyViewModel>>([]);
  
   Stream<List<SurveyViewModel>> get surveysStream => _surveys.stream;
 
-  GetxSurveysPresenter({@required this.loadSurveys});
+  GetxSurveysPresenter({required this.loadSurveys});
 
   Future<void> loadData() async {
     try {

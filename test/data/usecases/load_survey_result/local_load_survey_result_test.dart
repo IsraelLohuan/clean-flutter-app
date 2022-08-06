@@ -4,7 +4,7 @@ import 'package:forDev/data/usecases/load_survey_result/load_survey_result.dart'
 import 'package:forDev/domain/entities/entities.dart';
 import 'package:forDev/domain/helpers/domain_error.dart';
 import 'package:faker/faker.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import '../../../mocks/mocks.dart';
 
@@ -12,12 +12,12 @@ class CacheStorageSpy extends Mock implements CacheStorage {}
 
 void main() {
   group('loadBySurvey', () {
-    LocalLoadSurveyResult sut;
-    CacheStorageSpy cacheStorage;
-    Map data;
-    String surveyId;
+    late LocalLoadSurveyResult sut;
+    late CacheStorageSpy cacheStorage;
+    late Map data;
+    late String surveyId;
 
-    PostExpectation mockFetchCall() => when(cacheStorage.fetch(any));
+    When mockFetchCall() => when(() => cacheStorage.fetch(any()));
 
     void mockFetch(Map json) {
       data = json;
@@ -38,7 +38,7 @@ void main() {
     test('Should call cacheStorage with correct key', () async {
       await sut.loadBySurvey(surveyId: surveyId);
 
-      verify(cacheStorage.fetch('survey_result/$surveyId')).called(1);
+      verify(() => cacheStorage.fetch('survey_result/$surveyId')).called(1);
     });
 
     test('Should return surveyResult on sucess', () async {
@@ -105,12 +105,12 @@ void main() {
   });
 
   group('validate', () {
-    LocalLoadSurveyResult sut;
-    CacheStorageSpy cacheStorage;
-    Map data;
-    String surveyId;
+    late LocalLoadSurveyResult sut;
+    late CacheStorageSpy cacheStorage;
+    late Map data;
+    late String surveyId;
 
-    PostExpectation mockFetchCall() => when(cacheStorage.fetch(any));
+    When mockFetchCall() => when(() => cacheStorage.fetch(any()));
 
     void mockFetch(Map json) {
       data = json;
@@ -129,7 +129,7 @@ void main() {
     test('Should call cacheStorage with correct key', () async {
       await sut.validate(surveyId);
 
-      verify(cacheStorage.fetch('survey_result/$surveyId')).called(1);
+      verify(() => cacheStorage.fetch('survey_result/$surveyId')).called(1);
     });
 
     test('Should delete cache if it is invalid', () async {
@@ -137,7 +137,7 @@ void main() {
 
       await sut.validate(surveyId);
 
-      verify(cacheStorage.delete('survey_result/$surveyId')).called(1);
+      verify(() => cacheStorage.delete('survey_result/$surveyId')).called(1);
     });
 
     test('Should delete cache if it is incomplete', () async {
@@ -145,7 +145,7 @@ void main() {
 
       await sut.validate(surveyId);
 
-      verify(cacheStorage.delete('survey_result/$surveyId')).called(1);
+      verify(() => cacheStorage.delete('survey_result/$surveyId')).called(1);
     });
 
     test('Should delete cache if fetch fails', () async {
@@ -153,17 +153,17 @@ void main() {
 
       await sut.validate(surveyId);
 
-      verify(cacheStorage.delete('survey_result/$surveyId')).called(1);
+      verify(() => cacheStorage.delete('survey_result/$surveyId')).called(1);
     });
   });
 
   group('save', () {
-    LocalLoadSurveyResult sut;
-    CacheStorageSpy cacheStorage;
-    SurveyResultEntity surveyResult;
-    String surveyId;
+    late LocalLoadSurveyResult sut;
+    late CacheStorageSpy cacheStorage;
+    late SurveyResultEntity surveyResult;
+    late String surveyId;
 
-    PostExpectation mockSaveCall() => when(cacheStorage.save(key: anyNamed('key'), value: anyNamed('value')));
+    When mockSaveCall() => when(() => cacheStorage.save(key: any(named: 'key'), value: any(named: 'value')));
 
     void mockSaveError() => mockSaveCall().thenThrow(Exception());
 
@@ -193,7 +193,7 @@ void main() {
 
       await sut.save(surveyResult);
 
-      verify(cacheStorage.save(key: 'survey_result/${surveyResult.surveyId}', value: json)).called(1);
+      verify(() => cacheStorage.save(key: 'survey_result/${surveyResult.surveyId}', value: json)).called(1);
     });
 
     test('Should throw UnexpectedError if save throws', () async {

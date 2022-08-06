@@ -5,7 +5,6 @@ import 'package:forDev/presentation/mixins/mixins.dart';
 import 'package:forDev/ui/helpers/errors/errors.dart';
 import 'package:forDev/ui/pages/pages.dart';
 import 'package:get/get.dart';
-import 'package:meta/meta.dart';
 import 'package:forDev/presentation/protocol/protocols.dart';
 
 class GetxSignUpPresenter extends GetxController with FormManager, NavigationManager, UiErrorManager, LoadingManager implements SignUpPresenter {
@@ -13,25 +12,25 @@ class GetxSignUpPresenter extends GetxController with FormManager, NavigationMan
   final Validation validation;
   final SaveCurrentAccount saveCurrentAccount;
 
-  final _nameError = Rx<UiError>();
-  final _emailError = Rx<UiError>();
-  final _passwordError = Rx<UiError>();
-  final _passwordConfirmationError = Rx<UiError>();
+  final _nameError = Rx<UiError?>(null);
+  final _emailError = Rx<UiError?>(null);
+  final _passwordError = Rx<UiError?>(null);
+  final _passwordConfirmationError = Rx<UiError?>(null);
  
-  String _name;
-  String _email;
-  String _password;
-  String _passwordConfirmation;
+  String? _name;
+  String? _email;
+  String? _password;
+  String? _passwordConfirmation;
 
-  Stream<UiError> get nameErrorStream  => _nameError.stream;
-  Stream<UiError> get emailErrorStream => _emailError.stream;
-  Stream<UiError> get passwordErrorStream => _passwordError.stream;
-  Stream<UiError> get passwordConfirmationErrorStream =>_passwordConfirmationError.stream;
+  Stream<UiError?> get nameErrorStream  => _nameError.stream;
+  Stream<UiError?> get emailErrorStream => _emailError.stream;
+  Stream<UiError?> get passwordErrorStream => _passwordError.stream;
+  Stream<UiError?> get passwordConfirmationErrorStream =>_passwordConfirmationError.stream;
  
   GetxSignUpPresenter({
-    @required this.validation, 
-    @required this.addAccount,
-    @required this.saveCurrentAccount
+    required this.validation, 
+    required this.addAccount,
+    required this.saveCurrentAccount
   });
 
   void validateEmail(String email) {
@@ -58,7 +57,7 @@ class GetxSignUpPresenter extends GetxController with FormManager, NavigationMan
     _validateForm();
   }
 
-  UiError _validateField({String field}) {
+  UiError? _validateField({required String field}) {
     final formData = {
       'name': _name,
       'email': _email,
@@ -89,10 +88,10 @@ class GetxSignUpPresenter extends GetxController with FormManager, NavigationMan
       mainError = null;
       isLoading = true;
       final account = await addAccount.add(AddAccountParams(
-        name: _name,
-        email: _email,
-        password: _password,
-        passwordConfirmation: _passwordConfirmation
+        name: _name!,
+        email: _email!,
+        password: _password!,
+        passwordConfirmation: _passwordConfirmation!
       ));
       await saveCurrentAccount.save(account);
       navigateTo = '/surveys';

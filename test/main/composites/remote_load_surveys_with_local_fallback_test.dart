@@ -5,20 +5,20 @@ import 'package:forDev/domain/entities/entities.dart';
 import 'package:forDev/domain/helpers/domain_error.dart';
 import 'package:forDev/main/composites/composites.dart';
 import '../../mocks/mocks.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 class RemoteLoadSurveysSpy extends Mock implements RemoteLoadSurveys {}
 class LocalLoadSurveysSpy extends Mock implements LocalLoadSurveys {}
 
 void main() {
-  RemoteLoadSurveysWithLocalFallback sut;
-  RemoteLoadSurveysSpy remote;
-  LocalLoadSurveysSpy local;
-  List<SurveyEntity> remoteSurveys;
-  List<SurveyEntity> localSurveys;
+  late RemoteLoadSurveysWithLocalFallback sut;
+  late RemoteLoadSurveysSpy remote;
+  late LocalLoadSurveysSpy local;
+  late List<SurveyEntity> remoteSurveys;
+  late List<SurveyEntity> localSurveys;
 
-  PostExpectation mockRemoteLoadCall() => when(remote.load());
+  When mockRemoteLoadCall() => when(() => remote.load());
 
   void mockRemoteLoad() {
     remoteSurveys = FakeSurveysFactory.makeEntities();
@@ -28,7 +28,7 @@ void main() {
   void mockRemoteLoadError(DomainError error) =>
     mockRemoteLoadCall().thenThrow(error);
 
-  PostExpectation mockLocalLoadCall() => when(local.load());
+  When mockLocalLoadCall() => when(() => local.load());
 
   void mockLocalLoad() {
     localSurveys = FakeSurveysFactory.makeEntities();
@@ -52,13 +52,13 @@ void main() {
   test('Should call remote load', () async {
     await sut.load();
 
-    verify(remote.load()).called(1);
+    verify(() => remote.load()).called(1);
   });
 
   test('Should call local save with remote data', () async {
     await sut.load();
 
-    verify(local.save(remoteSurveys)).called(1);
+    verify(() => local.save(remoteSurveys)).called(1);
   });
 
   test('Should return remote surveys', () async {
@@ -80,8 +80,8 @@ void main() {
 
     await sut.load();
 
-    verify(local.validate()).called(1);
-    verify(local.load()).called(1);
+    verify(() => local.validate()).called(1);
+    verify(() => local.load()).called(1);
   });
 
   test('Should return local surveys', () async {
