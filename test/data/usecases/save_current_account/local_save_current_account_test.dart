@@ -1,4 +1,4 @@
-import 'package:forDev/data/cache/cache.dart';
+
 import 'package:forDev/data/usecases/save_current_account/save_current_account.dart';
 import 'package:forDev/domain/entities/entities.dart';
 import 'package:forDev/domain/helpers/domain_error.dart';
@@ -6,24 +6,18 @@ import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-class SaveSecureCacheStorageSpy extends Mock implements SaveSecureCacheStorage {
-}
+import '../../mocks/mocks.dart';
 
 void main() {
   late LocalSaveCurrentAccount sut;
-  late SaveSecureCacheStorageSpy saveSecureCacheStorage;
+  late SecureCacheStorageSpy saveSecureCacheStorage;
   late AccountEntity account;
 
   setUp(() {
-    saveSecureCacheStorage = SaveSecureCacheStorageSpy();
+    saveSecureCacheStorage = SecureCacheStorageSpy();
     sut = LocalSaveCurrentAccount(saveCacheStorage: saveSecureCacheStorage);
     account = AccountEntity(faker.guid.guid());
   });
-
-  void mockError() {
-    when(() => saveSecureCacheStorage.save(key: any(named: 'key'), value: any(named: 'value')))
-      .thenThrow(Exception());
-  }
 
   test('Should call SaveSecureCacheStorage with correct values', () async {
     await sut.save(account);
@@ -31,7 +25,7 @@ void main() {
   });
 
   test('Should throw UnexpectedError if SaveSecureCacheStorage throws', () async {
-    mockError();
+    saveSecureCacheStorage.mockSaveError();
 
     final future = sut.save(account);
 

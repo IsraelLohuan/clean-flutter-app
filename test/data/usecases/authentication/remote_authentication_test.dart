@@ -9,8 +9,7 @@ import 'package:forDev/domain/usecases/usecases.dart';
 import 'package:forDev/data/usecases/usecases.dart';
 import '../../../domain/mocks/mocks.dart';
 import '../../../infra/mocks/mocks.dart';
-
-class HttpClientSpy extends Mock implements HttpClient {}
+import '../../mocks/mocks.dart';
 
 void main() {
 
@@ -20,22 +19,13 @@ void main() {
   late AuthenticationParams params;
   late Map apiResult;
 
-  When mockRequest() =>
-    when(() => httpClient.request(url: any(named: 'url'), method: any(named: 'method'), body: any(named: 'body')));
-
-  void mockHttpData(Map data) {
-    apiResult = data;
-    mockRequest().thenAnswer((_) async => data);
-  }
-
-  void mockHttpError(HttpError error) => mockRequest().thenThrow(error);
-
   setUp(() {
     httpClient = HttpClientSpy();
     url = faker.internet.httpUrl();
     sut = RemoteAuthentication(httpClient: httpClient, url: url);
     params = ParamsFactory.makeAuthentication();
-    mockHttpData(ApiFactory.makeAccountJson());
+    apiResult = ApiFactory.makeAccountJson();
+    httpClient.mockRequest(apiResult);
   });
 
   test('Should call HttpClient with correct values', () async {
@@ -49,7 +39,7 @@ void main() {
   });
 
   test('Should throw UnexpectedError if HttpClient return 400', () async {
-    mockHttpError(HttpError.badRequest);
+    httpClient.mockRequestError(HttpError.badRequest);
 
     final params = AuthenticationParams(email: faker.internet.email(), secret: faker.internet.password());
     final future = sut.auth(params);
@@ -58,7 +48,7 @@ void main() {
   });
 
   test('Should throw UnexpectedError if HttpClient return 404', () async {
-    mockHttpError(HttpError.notFound);
+    httpClient.mockRequestError(HttpError.notFound);
 
     final params = AuthenticationParams(email: faker.internet.email(), secret: faker.internet.password());
     final future = sut.auth(params);
@@ -67,7 +57,7 @@ void main() {
   });
 
   test('Should throw UnexpectedError if HttpClient return 500', () async {
-    mockHttpError(HttpError.serverError);
+    httpClient.mockRequestError(HttpError.serverError);
     
     final params = AuthenticationParams(email: faker.internet.email(), secret: faker.internet.password());
     final future = sut.auth(params);
@@ -77,7 +67,7 @@ void main() {
 
   
   test('Should throw InvalidCredentialsError if HttpClient return 401', () async {
-    mockHttpError(HttpError.unauthorized);
+    httpClient.mockRequestError(HttpError.unauthorized);
    
     final params = AuthenticationParams(email: faker.internet.email(), secret: faker.internet.password());
     final future = sut.auth(params);
@@ -92,7 +82,7 @@ void main() {
   });
 
   test('Should throw UnexpectedError if HttpClient returns 200 with invalid data', () async {
-    mockHttpData({'invalid_key': 'invalid_value'});
+    httpClient.mockRequest({'invalid_key': 'invalid_value'});
 
     final future = sut.auth(params);
 
