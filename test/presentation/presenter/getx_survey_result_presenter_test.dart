@@ -8,7 +8,7 @@ import 'package:forDev/ui/pages/pages.dart';
 import 'package:faker/faker.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
-import '../../mocks/mocks.dart';
+import '../../domain/mocks/mocks.dart';
 
 class LoadSurveyResultSpy extends Mock implements LoadSurveyResult {}
 class SaveSurveyResultSpy extends Mock implements SaveSurveyResult {}
@@ -69,8 +69,8 @@ void main() {
       saveSurveyResult: saveSurveyResult,
       surveyId: surveyId, 
     );
-    mockLoadSurveyResult(FakeSurveyResultFactory.makeEntity());
-    mockSaveSurveyResult(FakeSurveyResultFactory.makeEntity());
+    mockLoadSurveyResult(EntityFactory.makeSurveyResult());
+    mockSaveSurveyResult(EntityFactory.makeSurveyResult());
   });
 
   group('loadData', () {

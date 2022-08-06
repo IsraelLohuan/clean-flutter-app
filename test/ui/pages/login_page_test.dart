@@ -13,18 +13,18 @@ class LoginPresenterSpy extends Mock implements LoginPresenter {}
 
 void main() {
   late LoginPresenter presenter;
-  late StreamController<UiError> emailErrorController;
-  late StreamController<UiError> passwordErrorController;
-  late StreamController<UiError> mainErrorController;
-  late StreamController<String> navigateToController;
+  late StreamController<UiError?> emailErrorController;
+  late StreamController<UiError?> passwordErrorController;
+  late StreamController<UiError?> mainErrorController;
+  late StreamController<String?> navigateToController;
   late StreamController<bool> isFormValidController;
   late StreamController<bool> isLoadingController;
 
   void initStreams() {
-    emailErrorController = StreamController<UiError>();
-    passwordErrorController = StreamController<UiError>();
-    mainErrorController = StreamController<UiError>();
-    navigateToController = StreamController<String>();
+    emailErrorController = StreamController<UiError?>();
+    passwordErrorController = StreamController<UiError?>();
+    mainErrorController = StreamController<UiError?>();
+    navigateToController = StreamController<String?>();
     isFormValidController = StreamController<bool>();
     isLoadingController = StreamController<bool>();  
   }
@@ -166,10 +166,6 @@ void main() {
     isLoadingController.add(true);
     await tester.pump();
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
-
-    isLoadingController.add(null);
-    await tester.pump();
-    expect(find.byType(CircularProgressIndicator), findsNothing);
   });
 
   testWidgets('Should present error message if authentication fails', (WidgetTester tester) async {

@@ -1,5 +1,4 @@
 
-import 'dart:io';
 import 'package:forDev/data/http/http.dart';
 import 'package:forDev/data/usecases/save_survey_result/save_survey_result.dart';
 import 'package:forDev/domain/entities/entities.dart';
@@ -8,8 +7,7 @@ import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../mocks/mocks.dart';
-
+import '../../../infra/mocks/mocks.dart';
 
 class HttpClientSpy extends Mock implements HttpClient {}
 
@@ -36,7 +34,7 @@ void main() {
     url = faker.internet.httpUrl();
     httpClient = HttpClientSpy();
     sut = RemoteSaveSurveyResult(url: url, httpClient: httpClient);
-    mockHttpData(FakeSurveyResultFactory.makeApiJson());
+    mockHttpData(ApiFactory.makeSurveyResultJson());
   });
 
   test('Should call HttpClient with correct values', () async {
@@ -67,7 +65,7 @@ void main() {
   });
 
   test('Should throw UnexpectedError if HttpClient returns 200 with invalid data', () {
-    mockHttpData(FakeSurveyResultFactory.makeInvalidApiJson());
+    mockHttpData(ApiFactory.makeInvalidJson());
 
     final future = sut.save(answer: answer);
 

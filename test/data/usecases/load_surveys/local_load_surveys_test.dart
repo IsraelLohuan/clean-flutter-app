@@ -6,7 +6,8 @@ import 'package:forDev/domain/helpers/domain_error.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-import '../../../mocks/mocks.dart';
+import '../../../domain/mocks/mocks.dart';
+import '../../../infra/mocks/mocks.dart';
 
 class CacheStorageSpy extends Mock implements CacheStorage {}
 
@@ -30,7 +31,7 @@ void main() {
       sut = LocalLoadSurveys(
         cacheStorage: cacheStorage
       );
-      mockFetch(FakeSurveysFactory.mapCacheJson());
+      mockFetch(CacheFactory.makeSurveyList());
     });
 
     test('Should call cacheStorage with correct key', () async {
@@ -66,16 +67,8 @@ void main() {
       expect(future, throwsA(DomainError.unexpected));
     });
 
-    test('Should throw UnexpectedError if cache is null', () async {
-      mockFetch(null);
-
-      final future = sut.load();
-
-      expect(future, throwsA(DomainError.unexpected));
-    });
-
     test('Should throw UnexpectedError if cache is invalid', () async {
-      mockFetch(FakeSurveysFactory.makeInvalidCacheJson());
+      mockFetch(CacheFactory.makeInvalidSurveyList());
 
       final future = sut.load();
 
@@ -83,7 +76,7 @@ void main() {
     });
 
     test('Should throw UnexpectedError if cache is incomplete', () async {
-      mockFetch(FakeSurveysFactory.makeIncompleteCacheJson());
+      mockFetch(CacheFactory.makeIncompleteSurveyList());
 
       final future = sut.load();
 
@@ -118,11 +111,11 @@ void main() {
       sut = LocalLoadSurveys(
         cacheStorage: cacheStorage
       );
-      mockFetch(FakeSurveysFactory.mapCacheJson());
+      mockFetch(CacheFactory.makeInvalidSurveyList());
     });
 
    test('Should delete cache if it is invalid', () async {
-      mockFetch(FakeSurveysFactory.makeInvalidCacheJson());
+      mockFetch(CacheFactory.makeInvalidSurveyList());
 
       await sut.validate();
 
@@ -130,7 +123,7 @@ void main() {
     });
 
     test('Should delete cache if it is incomplete', () async {
-      mockFetch(FakeSurveysFactory.makeIncompleteCacheJson());
+      mockFetch(CacheFactory.makeIncompleteSurveyList());
 
       await sut.validate();
 
@@ -158,7 +151,7 @@ void main() {
     setUp(() {
       cacheStorage = CacheStorageSpy();
       sut = LocalLoadSurveys(cacheStorage: cacheStorage);
-      surveys = FakeSurveysFactory.makeEntities();
+      surveys = EntityFactory.makeSurveyList();
     });
 
     test('Should call cacheStorage with correct values', () async {

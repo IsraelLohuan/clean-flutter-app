@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../helpers/helpers.dart';
-import '../../mocks/mocks.dart';
+import '../mocks/mocks.dart';
 
 class SurveysPresenterSpy extends Mock implements SurveysPresenter {}
 
@@ -80,10 +80,6 @@ void main() {
     isLoadingController.add(true);
     await tester.pump();
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
-
-    isLoadingController.add(null);
-    await tester.pump();
-    expect(find.byType(CircularProgressIndicator), findsNothing);
   });
 
   testWidgets('Should present error if surveysStream fails', (WidgetTester tester) async {
@@ -100,7 +96,7 @@ void main() {
   testWidgets('Should present list if surveysStream succeeds', (WidgetTester tester) async {
     await loadPage(tester);
 
-    loadSurveysController.add(FakeSurveysFactory.makeSurveys());
+    loadSurveysController.add(ViewModelFactory.makeSurveyList());
     await tester.pump();
 
     expect(find.text('Algo errado aconteceu. Tente novamente em breve.'), findsNothing);
@@ -112,7 +108,7 @@ void main() {
   testWidgets('Should present list if surveysStream succeeds', (WidgetTester tester) async {
     await loadPage(tester);
 
-    loadSurveysController.add(FakeSurveysFactory.makeSurveys());
+    loadSurveysController.add(ViewModelFactory.makeSurveyList());
     await tester.pump();
 
     expect(find.text('Algo errado aconteceu. Tente novamente em breve.'), findsNothing);
@@ -136,7 +132,7 @@ void main() {
   testWidgets('Should call gotoSurveyResult on survey click', (WidgetTester tester) async {
     await loadPage(tester);
 
-    loadSurveysController.add(FakeSurveysFactory.makeSurveys());
+    loadSurveysController.add(ViewModelFactory.makeSurveyList());
     await tester.pump();
 
     await tester.tap(find.text('Question 1'));
@@ -169,10 +165,6 @@ void main() {
     await loadPage(tester);
 
     isSessionExpiredController.add(false);
-    await tester.pumpAndSettle();
-    expect(currentRoute, '/surveys');
-
-    isSessionExpiredController.add(null);
     await tester.pumpAndSettle();
     expect(currentRoute, '/surveys');
   });

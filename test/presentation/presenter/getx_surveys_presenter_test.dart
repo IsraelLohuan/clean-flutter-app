@@ -7,7 +7,7 @@ import 'package:forDev/ui/helpers/errors/errors.dart';
 import 'package:forDev/ui/pages/surveys/surveys.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
-import '../../mocks/mocks.dart';
+import '../../domain/mocks/entity_factory.dart';
 
 class LoadSurveysSpy extends Mock implements LoadSurveys {}
 
@@ -30,7 +30,7 @@ void main() {
   setUp(() {
     loadSurveys = LoadSurveysSpy();
     sut = GetxSurveysPresenter(loadSurveys: loadSurveys);
-    mockLoadSurveys(FakeSurveysFactory.makeEntities());
+    mockLoadSurveys(EntityFactory.makeSurveyList());
   });
 
   test('Should call LoadSurveys on loadData', () async {

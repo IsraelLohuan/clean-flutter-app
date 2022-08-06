@@ -11,24 +11,24 @@ class SignUpPresenterSpy extends Mock implements SignUpPresenter {}
 
 void main() {
   late SignUpPresenter presenter;
-  late StreamController<UiError> nameErrorController;
-  late StreamController<UiError> emailErrorController;
-  late StreamController<UiError> passwordErrorController;
-  late StreamController<UiError> passwordConfirmationErrorController;
-  late StreamController<UiError> mainErrorController;
+  late StreamController<UiError?> nameErrorController;
+  late StreamController<UiError?> emailErrorController;
+  late StreamController<UiError?> passwordErrorController;
+  late StreamController<UiError?> passwordConfirmationErrorController;
+  late StreamController<UiError?> mainErrorController;
   late StreamController<bool> isFormValidController;
   late StreamController<bool> isLoadingController;
-  late StreamController<String> navigateToController;
+  late StreamController<String?> navigateToController;
 
   void initStreams() {
-    nameErrorController = StreamController<UiError>();
-    emailErrorController = StreamController<UiError>();
-    passwordErrorController = StreamController<UiError>();
-    passwordConfirmationErrorController = StreamController<UiError>();
-    mainErrorController = StreamController<UiError>();
+    nameErrorController = StreamController<UiError?>();
+    emailErrorController = StreamController<UiError?>();
+    passwordErrorController = StreamController<UiError?>();
+    passwordConfirmationErrorController = StreamController<UiError?>();
+    mainErrorController = StreamController<UiError?>();
     isFormValidController = StreamController<bool>();
     isLoadingController = StreamController<bool>();
-    navigateToController = StreamController<String>();
+    navigateToController = StreamController<String?>();
   }
 
   void mockStreams() {
@@ -208,10 +208,6 @@ void main() {
     isLoadingController.add(true);
     await tester.pump();
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
-
-    isLoadingController.add(null);
-    await tester.pump();
-    expect(find.byType(CircularProgressIndicator), findsNothing);
   });
 
   testWidgets('Should present error message if signUp fails', (WidgetTester tester) async {

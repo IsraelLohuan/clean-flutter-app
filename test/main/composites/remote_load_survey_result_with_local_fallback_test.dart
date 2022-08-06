@@ -7,7 +7,7 @@ import 'package:faker/faker.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-import '../../mocks/mocks.dart';
+import '../../domain/mocks/mocks.dart';
 
 class RemoteLoadSurveyResultSpy extends Mock implements RemoteLoadSurveyResult {}
 class LocalLoadSurveyResultSpy extends Mock implements LocalLoadSurveyResult {}
@@ -23,7 +23,7 @@ void main() {
   When mockRemoteLoadCall() => when(() => remote.loadBySurvey(surveyId: any(named: 'surveyId')));
 
   void mockRemoteLoad() {
-    remoteResult = FakeSurveyResultFactory.makeEntity();
+    remoteResult = EntityFactory.makeSurveyResult();
     mockRemoteLoadCall().thenAnswer((_) async => remoteResult);
   }
 
@@ -32,7 +32,7 @@ void main() {
   When mockLocalLoadCall() => when(() => local.loadBySurvey(surveyId: any(named: 'surveyId')));
 
   void mockLocalLoad() {
-    localResult = FakeSurveyResultFactory.makeEntity();
+    localResult = EntityFactory.makeSurveyResult();
     mockLocalLoadCall().thenAnswer((_) async => localResult);
   }
 

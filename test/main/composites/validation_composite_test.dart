@@ -13,15 +13,15 @@ void main() {
   late FieldValidationSpy validation3;
   late ValidationComposite sut;
 
-  void mockValidation1(ValidationError error) {
+  void mockValidation1(ValidationError? error) {
     when(() => validation1.validate(any())).thenReturn(error);
   }
 
-  void mockValidation2(ValidationError error) {
+  void mockValidation2(ValidationError? error) {
     when(() => validation2.validate(any())).thenReturn(error);
   }
 
-  void mockValidation3(ValidationError error) {
+  void mockValidation3(ValidationError? error) {
     when(() => validation3.validate(any())).thenReturn(error);
   }
 

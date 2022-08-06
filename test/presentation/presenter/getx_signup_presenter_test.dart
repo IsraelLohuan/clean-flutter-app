@@ -8,7 +8,7 @@ import 'package:forDev/ui/helpers/errors/errors.dart';
 import 'package:faker/faker.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
-import '../../mocks/mocks.dart';
+import '../../domain/mocks/mocks.dart';
 
 class ValidationSpy extends Mock implements Validation {}
 class AddAccountSpy extends Mock implements AddAccount {}
@@ -25,10 +25,10 @@ void main() {
   late String passwordConfirmation;
   late AccountEntity account;
 
-  When mockValidationCall(String field) =>
+  When mockValidationCall(String? field) =>
     when(() => validation.validate(field: field == null ? any(named: 'field') : field, input: any(named: 'input')));
 
-  void mockValidation({String field, ValidationError value}) {
+  void mockValidation({String? field, ValidationError? value}) {
     mockValidationCall(field).thenReturn(value);
   }
 
@@ -63,7 +63,7 @@ void main() {
     password = faker.internet.password();
     passwordConfirmation = faker.internet.password();
     mockValidation();
-    mockAddAccount(FakeAccountFactory.makeEntity());
+    mockAddAccount(EntityFactory.makeAccount());
   });
 
   test('Should call Validation with correct email', () {

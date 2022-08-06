@@ -7,7 +7,8 @@ import 'package:test/test.dart';
 
 import 'package:forDev/domain/usecases/usecases.dart';
 import 'package:forDev/data/usecases/usecases.dart';
-import '../../../mocks/mocks.dart';
+import '../../../domain/mocks/mocks.dart';
+import '../../../infra/mocks/mocks.dart';
 
 class HttpClientSpy extends Mock implements HttpClient {}
 
@@ -33,8 +34,8 @@ void main() {
     httpClient = HttpClientSpy();
     url = faker.internet.httpUrl();
     sut = RemoteAuthentication(httpClient: httpClient, url: url);
-    params = FakeParamsFactory.makeAuthentication();
-    mockHttpData(FakeAccountFactory.makeApiJson());
+    params = ParamsFactory.makeAuthentication();
+    mockHttpData(ApiFactory.makeAccountJson());
   });
 
   test('Should call HttpClient with correct values', () async {

@@ -7,8 +7,7 @@ import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../mocks/mocks.dart';
-
+import '../../../infra/mocks/mocks.dart';
 
 class HttpClientSpy extends Mock implements HttpClient {}
 
@@ -33,7 +32,7 @@ void main() {
     url = faker.internet.httpUrl();
     httpClient = HttpClientSpy();
     sut = RemoteLoadSurveys(url: url, httpClient: httpClient);
-    mockHttpData(FakeSurveysFactory.makeApiJson());
+    mockHttpData(ApiFactory.makeSurveyList());
   });
 
   test('Should call HttpClient with correct values', () async {
@@ -61,7 +60,7 @@ void main() {
   });
 
   test('Should throw UnexpectedError if HttpClient returns 200 with invalid data', () async {
-    mockHttpData(FakeSurveysFactory.makeInvalidApiJson());
+    mockHttpData(ApiFactory.makeInvalidList());
 
     final future = sut.load();
 

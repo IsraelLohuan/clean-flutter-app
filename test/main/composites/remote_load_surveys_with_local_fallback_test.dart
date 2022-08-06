@@ -4,7 +4,7 @@ import 'package:forDev/data/usecases/usecases.dart';
 import 'package:forDev/domain/entities/entities.dart';
 import 'package:forDev/domain/helpers/domain_error.dart';
 import 'package:forDev/main/composites/composites.dart';
-import '../../mocks/mocks.dart';
+import '../../domain/mocks/mocks.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -21,7 +21,7 @@ void main() {
   When mockRemoteLoadCall() => when(() => remote.load());
 
   void mockRemoteLoad() {
-    remoteSurveys = FakeSurveysFactory.makeEntities();
+    remoteSurveys = EntityFactory.makeSurveyList();
     mockRemoteLoadCall().thenAnswer((_) async => remoteSurveys);
   }
 
@@ -31,7 +31,7 @@ void main() {
   When mockLocalLoadCall() => when(() => local.load());
 
   void mockLocalLoad() {
-    localSurveys = FakeSurveysFactory.makeEntities();
+    localSurveys = EntityFactory.makeSurveyList();
     mockLocalLoadCall().thenAnswer((_) async => localSurveys);
   }
 
