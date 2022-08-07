@@ -14,13 +14,13 @@ void main() {
   late String token;
 
   setUp(() {
-    secureCacheStorage = SecureCacheStorageSpy();
-    sut = LocalLoadCurrentAccount(fetchCacheStorage: secureCacheStorage);
     token = faker.guid.guid();
+    secureCacheStorage = SecureCacheStorageSpy();
     secureCacheStorage.mockFetch(token);
+    sut = LocalLoadCurrentAccount(fetchCacheStorage: secureCacheStorage);
   });
 
-  test('Should call secureCacheStorage with correct value', () async {
+  test('Should call FetchSecureCacheStorage with correct value', () async {
     await sut.load();
 
     verify(() => secureCacheStorage.fetch('token'));

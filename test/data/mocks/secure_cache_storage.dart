@@ -9,7 +9,7 @@ class SecureCacheStorageSpy extends Mock implements FetchSecureCacheStorage, Del
   }
 
   When mockFetchCall() => when(() => fetch(any()));
-  void mockFetch(dynamic data) => mockFetchCall().thenAnswer((_) async => data);  
+  void mockFetch(String? data) => mockFetchCall().thenAnswer((_) async => data);  
   void mockFetchError() => mockFetchCall().thenThrow(Exception());  
 
   When mockDeleteCall() => when(() => delete(any()));

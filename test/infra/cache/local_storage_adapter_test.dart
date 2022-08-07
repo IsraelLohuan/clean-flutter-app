@@ -3,24 +3,22 @@ import 'package:forDev/infra/cache/cache.dart';
 import 'package:faker/faker.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
-import 'package:localstorage/localstorage.dart';
-
-class LocalStorageSpy extends Mock implements LocalStorage {}
+import '../mocks/mocks.dart';
 
 void main() {
   late LocalStorageAdapter sut;
   late LocalStorageSpy localStorage;
   late String key;
   late dynamic value;
- 
-  void mockDeleteError() => when(() => localStorage.deleteItem(any())).thenThrow(Exception());
-  void mockSaveError() => when(() => localStorage.setItem(any(), any)).thenThrow(Exception());
-  
+  late String result;
+
   setUp(() {
-    localStorage = LocalStorageSpy();
-    sut = LocalStorageAdapter(localStorage: localStorage);
     key = faker.randomGenerator.string(5);
     value = faker.randomGenerator.string(50);
+    result = faker.randomGenerator.string(50);
+    localStorage = LocalStorageSpy();
+    localStorage.mockFetch(result);
+    sut = LocalStorageAdapter(localStorage: localStorage);
   });
 
   group('save', () {
@@ -32,7 +30,7 @@ void main() {
     });
 
     test('Should throw if deleteItem throws', () async {
-      mockDeleteError();
+      localStorage.mockDeleteError();
 
       final future = sut.save(key: key, value: value);
 
@@ -40,7 +38,7 @@ void main() {
     });
 
     test('Should throw if setItem throws', () async {
-      mockSaveError();
+      localStorage.mockSaveError();
 
       final future = sut.save(key: key, value: value);
 
@@ -56,7 +54,7 @@ void main() {
     });
 
     test('Should throw if deleteItem throws', () async {  
-      mockDeleteError();
+      localStorage.mockDeleteError();
 
       final future = sut.delete(key);
 
@@ -65,21 +63,6 @@ void main() {
   });
 
   group('fetch', () {
-    late String result;
-
-    When mockFetchCall() => when(() => localStorage.getItem(any()));
-
-    void mockFetch() {
-      result = faker.randomGenerator.string(50);
-      mockFetchCall().thenAnswer((_) async => result);
-    }
-
-    void mockFetchError() => mockFetchCall().thenThrow(Exception());
-   
-    setUp(() {
-      mockFetch();
-    });
-
     test('Should call localStorage with correct values', () async {
       await sut.fetch(key);
 
@@ -93,7 +76,7 @@ void main() {
     });
 
     test('Should throw if getItem throws', () async {  
-      mockFetchError();
+      localStorage.mockFetchError();
 
       final future = sut.fetch(key);
 
