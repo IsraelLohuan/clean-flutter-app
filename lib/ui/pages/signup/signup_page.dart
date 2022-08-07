@@ -47,7 +47,7 @@ class SignUpPage extends StatelessWidget with KeyBoardManager, LoadingManager, U
                               child: PasswordConfirmationInput(),
                             ),
                             SignUpButton(),
-                            FlatButton.icon(
+                            TextButton.icon(
                               onPressed: presenter.goToSignUp, 
                               icon: Icon(Icons.exit_to_app), 
                               label: Text(R.strings.login)
