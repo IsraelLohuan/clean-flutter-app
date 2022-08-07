@@ -1,19 +1,15 @@
-import 'package:forDev/data/cache/cache.dart';
+
 import 'package:forDev/data/http/http.dart';
 import 'package:forDev/main/decorators/authorize_http_client_decorator.dart';
 import 'package:faker/faker.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-class FetchSecureCacheStorageSpy extends Mock implements FetchSecureCacheStorage {}
-class DeleteSecureCacheStorageSpy extends Mock implements DeleteSecureCacheStorage {}
-class HttpClientSpy extends Mock implements HttpClient {}
+import '../../data/mocks/mocks.dart';
 
 void main() { 
   late AuthorizeHttpClientDecorator sut;
-  late FetchSecureCacheStorageSpy fetchSecureCacheStorage;
-  late DeleteSecureCacheStorageSpy deleteSecureCacheStorage;
-
+  late SecureCacheStorageSpy secureCacheStorage;
   late HttpClientSpy httpClient;
   late String url;
   late String method;
@@ -21,54 +17,28 @@ void main() {
   late String token;
   late String httpResponse;
 
-  When mockTokenCall() => when(() => fetchSecureCacheStorage.fetch(any()));
-
-  void mockToken() {
-    token = faker.guid.guid();
-    mockTokenCall().thenAnswer((_) async => token);
-  }
-
-  void mockTokenError() {
-    mockTokenCall().thenThrow(Exception());
-  }
-  
-  When mockHttpResponseCall() => when(() => httpClient.request(
-    url: any(named: 'url'), 
-    method: any(named: 'method'),
-    body: any(named: 'body'),
-    headers: any(named: 'headers')
-  ));
-
-  void mockHttpResponse() {
-    httpResponse = faker.randomGenerator.string(50);
-    mockHttpResponseCall().thenAnswer((_) async => httpResponse);
-  }
-
-  void mockHttpResponseError(HttpError error) {
-    mockHttpResponseCall().thenThrow(error);
-  }
-
   setUp(() {
-    fetchSecureCacheStorage = FetchSecureCacheStorageSpy();
-    deleteSecureCacheStorage = DeleteSecureCacheStorageSpy();
+    token = faker.guid.guid();
+    httpResponse = faker.randomGenerator.string(50);
+    secureCacheStorage = SecureCacheStorageSpy();
     httpClient = HttpClientSpy();
     sut = AuthorizeHttpClientDecorator(
-      fetchCacheStorage: fetchSecureCacheStorage,
-      deleteCacheStorage: deleteSecureCacheStorage,
+      fetchCacheStorage: secureCacheStorage,
+      deleteCacheStorage: secureCacheStorage,
       decoratee: httpClient, 
     );
 
     url = faker.internet.httpUrl();
     method = faker.randomGenerator.string(10);
     body = {'any_key': 'any_value'};
-    mockToken();
-    mockHttpResponse();
+    secureCacheStorage.mockFetch(token);
+    httpClient.mockRequest(httpResponse);
   });
 
   test('Should call FetchSecureCacheStorage with correct key', () async {
     await sut.request(url: url, method: method, body: body);
 
-    verify(() => fetchSecureCacheStorage.fetch('token')).called(1);
+    verify(() => secureCacheStorage.fetch('token')).called(1);
   });
 
   test('Should call decoratee with access token on header', () async {
@@ -91,16 +61,16 @@ void main() {
   });
 
   test('Should throw ForbiddenError if FetchSecureCacheStorage throws', () async {
-    mockTokenError();
+    secureCacheStorage.mockFetchError();
 
     final future = sut.request(url: url, method: method, body: body);
 
     expect(future, throwsA(HttpError.forbidden));
-    verify(() => deleteSecureCacheStorage.delete('token')).called(1);
+    verify(() => secureCacheStorage.delete('token')).called(1);
   });
 
   test('Should rethrow if decoratee throws', () async {
-    mockHttpResponseError(HttpError.badRequest);
+    httpClient.mockRequestError(HttpError.badRequest);
 
     final future = sut.request(url: url, method: method, body: body);
 
@@ -108,13 +78,12 @@ void main() {
   });
 
   test('Should delete cache if request throws ForbiddenError', () async {
-    mockHttpResponseError(HttpError.forbidden);
+    httpClient.mockRequestError(HttpError.forbidden);
 
     final future = sut.request(url: url, method: method, body: body);
-    await untilCalled(() => deleteSecureCacheStorage.delete('token'));
-
+    await untilCalled(() => secureCacheStorage.delete('token'));
 
     expect(future, throwsA(HttpError.forbidden));
-    verify(() => deleteSecureCacheStorage.delete('token')).called(1);
+    verify(() => secureCacheStorage.delete('token')).called(1);
   });
 }
