@@ -9,32 +9,7 @@ import 'package:faker/faker.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import '../../domain/mocks/mocks.dart';
-
-class ValidationSpy extends Mock implements Validation {
-  ValidationSpy() {
-    this.mockValidation();
-  }
-
-  When mockValidationCall(String? field) => when(() => this.validate(field: field == null ? any(named: 'field') : field, input: any(named: 'input')));
-  void mockValidation({String? field }) => this.mockValidationCall(field).thenReturn(null);
-  void mockValidationError({String? field, required ValidationError? value}) => this.mockValidationCall(field).thenReturn(value);
-}
-
-class AuthenticationSpy extends Mock implements Authentication {
-  When mockAuthenticationCall() => when(() => this.auth(any()));
-  void mockAuthentication(AccountEntity data) => this.mockAuthenticationCall().thenAnswer((_) async => data);
-  void mockAuthenticationError(DomainError error) => this.mockAuthenticationCall().thenThrow(error);
-}
-
-class SaveCurrentAccountSpy extends Mock implements SaveCurrentAccount {
-  SaveCurrentAccountSpy() {
-    this.mockSaveCurrentAccount();
-  }
-
-  When mockSaveCurrentAccountCall() => when(() => this.save(any()));
-  void mockSaveCurrentAccount() => this.mockSaveCurrentAccountCall().thenAnswer((_) async => _);
-  void mockSaveCurrentAccountError() => this.mockSaveCurrentAccountCall().thenThrow(DomainError.unexpected);
-}
+import '../mocks/mocks.dart';
 
 void main() {
   late GetxLoginPresenter sut;
